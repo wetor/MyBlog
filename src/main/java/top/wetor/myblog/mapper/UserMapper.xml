@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.wetor.myblog.mapper.UserMapper">
+    <!-- 根据id查询用户 -->
+    <select id="selectUserById" parameterType="Integer" resultType="top.wetor.myblog.bean.User">
+        select * from tb_blog_user where u_id = #{id}
+    </select>
+    <!-- 根据名字模糊查询用户 -->
+    <!-- #{} 占位符 尽量选用#{}来解决问题 '1' '王'-->
+    <!-- ${} 字符串拼接 or 1=1  王 -->
+    <!-- order by ${} -->
+    <select id="selectUserByName" parameterType="String" resultType="top.wetor.myblog.bean.User">
+        <!-- SELECT * FROM USER WHERE u_username LIKE '%${value}%' -->
+        SELECT * FROM tb_blog_user WHERE u_name LIKE "%"#{name}"%"
+    </select>
+
+    <!-- 添加用户 -->
+    <insert id="insertUser" parameterType="top.wetor.myblog.bean.User">
+        insert into tb_blog_user values( #{u_id} , #{u_name} , #{u_mail}, #{u_password})
+    </insert>
+
+    <!-- 修改用户 -->
+    <update id="updateUser" parameterType="top.wetor.myblog.bean.User">
+        update tb_blog_user set u_name = #{u_name} where u_id = #{u_id}
+    </update>
+
+    <!-- 根据id删除用户 -->
+    <delete id="deleteUserById" parameterType="Integer">
+        delete from tb_blog_user Where u_id = #{id}
+    </delete>
+</mapper>
