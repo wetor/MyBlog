@@ -1,4 +1,4 @@
-package top.wetor.myblog.bean;
+package top.wetor.bean;
 
 public class User {
     /*u_id number(10) not null,--主键
@@ -10,6 +10,7 @@ public class User {
     private String u_name;
     private String u_mail;
     private String u_password;
+    private String u_permission;
 
     public Integer getU_id() {
         return u_id;
@@ -43,6 +44,14 @@ public class User {
         this.u_password = u_password;
     }
 
+    public String getU_permission() {
+        return u_permission;
+    }
+
+    public void setU_permission(String u_permission) {
+        this.u_permission = u_permission;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -50,6 +59,7 @@ public class User {
                 ", u_name='" + u_name + '\'' +
                 ", u_mail='" + u_mail + '\'' +
                 ", u_password='" + u_password + '\'' +
+                ", u_permission='" + u_permission + '\'' +
                 '}';
     }
 }

@@ -1,15 +1,16 @@
-package top.wetor.myblog.bean;
+package top.wetor.bean;
 
 public class Group {
-/*  g_id number(10) not null,--主键
+/*  g_id count(10) not null,--主键
        g_name varchar2(60) not null,
        g_info varchar2(1200),
-       g_rank number(10),
+       g_rank count(10),
 */
     private Integer g_id;
     private String g_name;
     private String g_info;
     private Integer g_rank;
+    private Integer g_count;
 
     public Integer getG_id() {
         return g_id;
@@ -43,6 +44,14 @@ public class Group {
         this.g_rank = g_rank;
     }
 
+    public Integer getG_count() {
+        return g_count;
+    }
+
+    public void setG_count(Integer g_count) {
+        this.g_count = g_count;
+    }
+
     @Override
     public String toString() {
         return "Group{" +
@@ -50,6 +59,7 @@ public class Group {
                 ", g_name='" + g_name + '\'' +
                 ", g_info='" + g_info + '\'' +
                 ", g_rank=" + g_rank +
+                ", g_count=" + g_count +
                 '}';
     }
 }

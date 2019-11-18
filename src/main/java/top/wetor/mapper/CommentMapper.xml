@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.wetor.mapper.CommentMapper">
+    <insert id="insertComment" parameterType="top.wetor.bean.Group">
+        insert into tb_comment
+        values( null ,
+            #{c_cid},
+            #{a_id},
+            #{c_time},
+            #{c_name},
+            #{c_mail},
+            #{c_content}
+        )
+    </insert>
+    <delete id="deleteCommentById" parameterType="Integer">
+        delete from tb_comment
+        Where c_id = #{id}
+    </delete>
+    <update id="updateComment" parameterType="top.wetor.bean.Comment">
+        update tb_comment
+        <set>
+            <if test="c_cid!=null">c_cid=#{c_cid},</if>
+            <if test="a_id!=null">a_id=#{a_id},</if>
+            <if test="c_time!=null">c_time=#{c_time},</if>
+            <if test="c_name!=null">c_name=#{c_name},</if>
+            <if test="c_mail!=null">a_id=#{c_mail},</if>
+            <if test="c_content!=null">c_content=#{c_content},</if>
+        </set>
+        where c_id = #{c_id}
+    </update>
+    <select id="selectCommentById" parameterType="Integer" resultType="top.wetor.bean.Comment">
+        select * from tb_comment
+        where c_id = #{id}
+    </select>
+    <select id="selectCommentCount" resultType="integer">
+        select count(*) from tb_comment
+    </select>
+    <select id="selectCommentPage" resultType="top.wetor.bean.Comment">
+        select * from tb_comment
+        where c_cid = null
+        ORDER BY c_time
+        <if test=" param3 == null or param3 == false ">
+            desc
+        </if>
+        limit #{begin},#{number}
+    </select>
+
+    <select id="selectCommentAll" resultType="top.wetor.bean.Comment">
+        select * from tb_comment
+        where c_cid = null
+        ORDER BY c_time
+        <if test=" param1 == null or param1 == false ">
+            desc
+        </if>
+    </select>
+
+    <select id="selectCommentReplyPageById" resultType="top.wetor.bean.Comment">
+        select * from tb_comment
+        where c_cid=#{id}
+        ORDER BY c_time
+        <if test=" param4 == null or param4 == false ">
+            desc
+        </if>
+        limit #{begin},#{number}
+    </select>
+
+    <select id="selectCommentReplyAllById" resultType="top.wetor.bean.Comment">
+        select * from tb_comment
+        where c_cid=#{id}
+        ORDER BY c_time
+        <if test=" param2 == null or param2 == false ">
+            desc
+        </if>
+    </select>
+
+    <select id="selectArticleCommentAllById" resultType="top.wetor.bean.Comment">
+        select * from tb_comment
+        where a_id=#{id} and c_cid=null
+        ORDER BY c_time
+        <if test=" param2 == null or param2 == false ">
+            desc
+        </if>
+    </select>
+</mapper>

@@ -1,6 +1,6 @@
-package top.wetor.myblog.dao;
+package top.wetor.dao;
 
-import top.wetor.myblog.bean.User;
+import top.wetor.bean.User;
 
 public interface  UserDao {
     public User getUserById(Integer id);

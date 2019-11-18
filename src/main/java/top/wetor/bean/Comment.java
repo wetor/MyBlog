@@ -1,4 +1,4 @@
-package top.wetor.myblog.bean;
+package top.wetor.bean;
 
 import java.util.Date;
 
@@ -15,8 +15,7 @@ public class Comment {
     private Integer c_id;
     private Integer c_cid;
     private Integer a_id;
-    private Date c_time;
-    private Integer a_viewer;
+    private Date   c_time;
     private String c_name;
     private String c_mail;
     private String c_content;
@@ -53,14 +52,6 @@ public class Comment {
         this.c_time = c_time;
     }
 
-    public Integer getA_viewer() {
-        return a_viewer;
-    }
-
-    public void setA_viewer(Integer a_viewer) {
-        this.a_viewer = a_viewer;
-    }
-
     public String getC_name() {
         return c_name;
     }
@@ -92,7 +83,6 @@ public class Comment {
                 ", c_cid=" + c_cid +
                 ", a_id=" + a_id +
                 ", c_time=" + c_time +
-                ", a_viewer=" + a_viewer +
                 ", c_name='" + c_name + '\'' +
                 ", c_mail='" + c_mail + '\'' +
                 ", c_content='" + c_content + '\'' +

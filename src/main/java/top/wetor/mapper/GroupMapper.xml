@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.wetor.mapper.GroupMapper">
+    <insert id="insertGroup" parameterType="top.wetor.bean.Group">
+        insert into tb_group
+        values( null , #{g_name} , #{g_info}, #{g_rank}, 0)
+    </insert>
+    <delete id="deleteGroupById" parameterType="Integer">
+        delete from tb_group
+        Where g_id = #{id}
+    </delete>
+    <update id="updateGroup" parameterType="top.wetor.bean.Group">
+        update tb_group
+        <set>
+            <if test="g_name!=null">g_name=#{g_name},</if>
+            <if test="g_info!=null">g_info=#{g_info},</if>
+            <if test="g_rank!=null">g_rank=#{g_rank},</if>
+            <if test="g_count!=null">g_count=#{g_count},</if>
+        </set>
+        where g_id = #{g_id}
+    </update>
+    <select id="selectGroupById" parameterType="Integer" resultType="top.wetor.bean.Group">
+        select * from tb_group
+        where g_id = #{id}
+    </select>
+
+    <select id="selectGroupArticleCountById" parameterType="Integer" resultType="Integer">
+        select g_count from tb_group
+        where g_id = #{id}
+    </select>
+
+    <select id="selectGroupCount" resultType="integer">
+        select count(*) from tb_group
+    </select>
+    <select id="selectGroupPage" resultType="top.wetor.bean.Group">
+        select * from tb_group
+        ORDER BY g_rank
+        limit #{begin},#{number}
+    </select>
+
+    <select id="selectGroupAll" resultType="top.wetor.bean.Group">
+        select * from tb_group
+    </select>
+
+</mapper>

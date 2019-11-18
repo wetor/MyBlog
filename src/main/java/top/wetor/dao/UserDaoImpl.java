@@ -1,8 +1,8 @@
-package top.wetor.myblog.dao;
+package top.wetor.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import top.wetor.myblog.bean.User;
+import top.wetor.bean.User;
 
 public class UserDaoImpl implements UserDao {
     private SqlSessionFactory ssf;
