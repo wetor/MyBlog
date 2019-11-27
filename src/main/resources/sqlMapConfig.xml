@@ -29,8 +29,10 @@
 
   <!-- 配置映射器的位置 -->
   <mappers>
-      <mapper resource="top/wetor/mapper/UserMapper.xml"/>
+    <mapper resource="top/wetor/mapper/UserMapper.xml"/>
    	<mapper resource="top/wetor/mapper/ArticleMapper.xml"/>
+    <mapper resource="top/wetor/mapper/TagMapper.xml"/>
+    <mapper resource="top/wetor/mapper/TagMapMapper.xml"/>
   </mappers>
 
 </configuration>

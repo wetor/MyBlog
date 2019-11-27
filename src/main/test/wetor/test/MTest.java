@@ -8,11 +8,13 @@ import org.junit.Test;
 import top.wetor.bean.Article;
 import top.wetor.bean.User;
 import top.wetor.mapper.ArticleMapper;
+import top.wetor.mapper.TagMapMapper;
+import top.wetor.mapper.TagMapper;
 import top.wetor.mapper.UserMapper;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
+import java.util.*;
 
 public class MTest {
 	private static SqlSessionFactory ssf;
@@ -49,13 +51,43 @@ public class MTest {
 		Article article=new Article();
 		article.setG_id(1);
 		article.setU_id(1);
-		article.setA_title("title");
-		article.setA_tags("tag1,tag2,tag3");
+		article.setA_title("title22223333");
+		article.setA_tags("tag3,tag2,tag1");
 		article.setA_create_time(new Date());
 		article.setA_modify_time(new Date());
 		article.setA_look(1);
 		article.setA_love(1);
 
 		mapper.insertArticle(article);
+		session.commit();
+	}
+	@Test
+	public void mapperTestTag(){
+		SqlSession session = ssf.openSession();
+		TagMapper mapper = session.getMapper(TagMapper.class);
+		mapper.updateTagByString("tag1,tag2,tag3");
+		session.commit();
+	}
+	@Test
+	public void mapperTestTagAll(){
+		SqlSession session = ssf.openSession();
+		TagMapper mapper = session.getMapper(TagMapper.class);
+		ArrayList<String> ls = new ArrayList<String>();
+		ls.add("aaa,bbb,faasf");
+		ls.add("ccc,afasd,faasf");
+		ls.add("eee,bbb,faasfxxx");
+		mapper.updateTagAll(ls);
+		session.commit();
+	}
+	@Test
+	public void mapperTestTagMap(){
+		SqlSession session = ssf.openSession();
+		TagMapMapper mapper = session.getMapper(TagMapMapper.class);
+		List<Article> al= mapper.selectArticleByTagId(87,null,null);
+		for (Article article:al) {
+			System.out.println(article);
+
+		}
+		session.commit();
 	}
 }
