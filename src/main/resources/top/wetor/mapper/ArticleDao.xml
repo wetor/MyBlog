@@ -4,58 +4,25 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.wetor.dao.ArticleDao">
 
-    <insert id="insertArticle" parameterType="top.wetor.domain.Article">
-        insert into tb_article
-        values( null ,
-            #{g_id},
-            #{u_id},
-            #{a_title},
-            #{a_tags},
-            #{a_create_time},
-            #{a_modify_time},
-            #{a_look},
-            #{a_love},
-            #{a_cache_path},
-            #{a_content},
-            #{a_is_top},
-            #{a_is_hidden},
-            #{a_is_delete}
-        );
-    </insert>
+    <resultMap id="articleRM" type="top.wetor.domain.Article">
+        <id property="id"  column="a_id"/>
+        <result property="groupId"  column="g_id"/>
+        <result property="userId"  column="u_id"/>
+        <result property="title"  column="a_title"/>
+        <result property="tags"  column="a_tags"/>
+        <result property="createTime"  column="a_create_time"/>
+        <result property="modifyTime"  column="a_modify_time"/>
+        <result property="lookNum"  column="a_look"/>
+        <result property="loveNum"  column="a_love"/>
+        <result property="cachePath"  column="a_cache_path"/>
+        <result property="content"  column="a_content"/>
+        <result property="isTop"  column="a_is_top"/>
+        <result property="isHidden"  column="a_is_hidden"/>
+        <result property="isDelete"  column="a_is_delete"/>
+    </resultMap>
+    <!-- TODO Article多表映射-->
 
-    <delete id="deleteArticleById" parameterType="Integer">
-        delete from tb_article
-        Where a_id = #{id}
-    </delete>
-
-    <update id="updateArticle" parameterType="top.wetor.domain.Article">
-        update tb_article
-        <set>
-            <if test="g_id !=null">g_id= #{g_id},</if>
-            <if test="u_id  !=null">u_id=  #{u_id},</if>
-            <if test="a_title!=null">a_title=#{a_title},</if>
-            <if test="a_tags!=null">a_tags=#{a_tags},</if>
-            <if test="a_create_time!=null">a_create_time=  #{a_create_time},</if>
-            <if test="a_modify_time !=null">a_modify_time= #{a_modify_time},</if>
-            <if test="a_look  !=null">a_look=  #{a_look},</if>
-            <if test="a_love!=null">a_love=#{a_love},</if>
-            <if test="a_cache_path!=null">a_cache_path=#{a_cache_path},</if>
-            <if test="a_content!=null">a_content=  #{a_content},</if>
-            <if test="a_is_top !=null">a_is_top= #{a_is_top},</if>
-            <if test="a_is_hidden  !=null">a_is_hidden=  #{a_is_hidden},</if>
-            <if test="a_is_delete!=null">a_is_delete=#{a_is_delete}</if>
-
-        </set>
-        where a_id = #{a_id}
-    </update>
-
-    <select id="selectArticleById" parameterType="Integer" resultType="top.wetor.domain.Article">
-        select * from tb_article
-        where a_id = #{id}
-    </select>
-    <select id="selectArticleCount" resultType="integer">
-        select count(*) from tb_article
-    </select>
+    <!-- 查询公共sql -->
     <sql id="selectWithoutContent">
         select
             a_id,
@@ -72,8 +39,61 @@
             a_is_hidden,
             a_is_delete
     </sql>
+    <insert id="insertArticle" parameterType="top.wetor.domain.Article">
+        insert into tb_article
+        values( null ,
+            #{groupId},
+            #{userId},
+            #{title},
+            #{tags},
+            #{createTime},
+            #{modifyTime},
+            #{lookNum},
+            #{loveNum},
+            #{cachePath},
+            #{content},
+            #{isTop},
+            #{isHidden},
+            #{isDelete}
+        );
+    </insert>
 
-    <select id="selectArticlePage" resultType="top.wetor.domain.Article">
+    <delete id="deleteArticleById" parameterType="Integer">
+        delete from tb_article
+        Where a_id = #{id}
+    </delete>
+
+    <update id="updateArticle" parameterType="top.wetor.domain.Article">
+        update tb_article
+        <set>
+            <if test="groupId != null">g_id= #{groupId},</if>
+            <if test="userId != null">u_id=  #{userId},</if>
+            <if test="title != null">a_title=#{title},</if>
+            <if test="tags != null">a_tags=#{tags},</if>
+            <if test="createTime != null">a_create_time=  #{createTime},</if>
+            <if test="modifyTime != null">a_modify_time= #{modifyTime},</if>
+            <if test="lookNum != null">a_look=  #{lookNum},</if>
+            <if test="loveNum != null">a_love=#{loveNum},</if>
+            <if test="cachePath != null">a_cache_path=#{cachePath},</if>
+            <if test="content != null">a_content=  #{content},</if>
+            <if test="isTop != null">a_is_top= #{isTop},</if>
+            <if test="isHidden != null">a_is_hidden=  #{isHidden},</if>
+            <if test="isDelete != null">a_is_delete=#{isDelete}</if>
+
+        </set>
+        where a_id = #{id}
+    </update>
+
+    <select id="selectArticleById" parameterType="Integer" resultMap="articleRM">
+        select * from tb_article
+        where a_id = #{id}
+    </select>
+    <select id="selectArticleCount" resultType="integer">
+        select count(*) from tb_article
+    </select>
+
+
+    <select id="selectArticlePage" resultMap="articleRM">
         <include refid="selectWithoutContent"/>
         <if test="param3==null or param3==0">
         </if>
@@ -93,7 +113,7 @@
 
 
 
-    <select id="selectArticleAll" resultType="top.wetor.domain.Article">
+    <select id="selectArticleAll" resultMap="articleRM">
         <include refid="selectWithoutContent"/>
         <if test="param1==null or param1==0">
         </if>
@@ -109,7 +129,7 @@
             desc
         </if>
     </select>
-    <select id="selectArticleAllByType" resultType="top.wetor.domain.Article">
+    <select id="selectArticleAllByType" resultMap="articleRM">
         <include refid="selectWithoutContent"/>
         <!-- null/0:极简(不含文章内容) 1:简略(含文章内容摘要) 2:完整(包含文章内容) -->
         <if test="param3==null or param3==0">
@@ -143,7 +163,7 @@
         </if>
     </select>
 
-    <select id="selectArticlePageByType" resultType="top.wetor.domain.Article">
+    <select id="selectArticlePageByType" resultMap="articleRM">
         <include refid="selectWithoutContent"/>
         <!-- null/0:极简(不含文章内容) 1:简略(含文章内容摘要) 2:完整(包含文章内容) -->
         <if test="param5==null or param5==0">

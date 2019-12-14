@@ -4,35 +4,60 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.wetor.dao.TagMapDao">
 
+    <!-- 数据库表映射 -->
+    <resultMap id="articleRM" type="top.wetor.domain.Article">
+        <id property="id"  column="a_id"/>
+        <result property="groupId"  column="g_id"/>
+        <result property="userId"  column="u_id"/>
+        <result property="title"  column="a_title"/>
+        <result property="tags"  column="a_tags"/>
+        <result property="createTime"  column="a_create_time"/>
+        <result property="modifyTime"  column="a_modify_time"/>
+        <result property="lookNum"  column="a_look"/>
+        <result property="loveNum"  column="a_love"/>
+        <result property="cachePath"  column="a_cache_path"/>
+        <result property="content"  column="a_content"/>
+        <result property="isTop"  column="a_is_top"/>
+        <result property="isHidden"  column="a_is_hidden"/>
+        <result property="isDelete"  column="a_is_delete"/>
+    </resultMap>
+
+    <resultMap id="tagRM" type="top.wetor.domain.Tag">
+        <id property="id" column="t_id"/>
+        <result property="content" column="t_content"/>
+        <result property="count" column="t_count"/>
+    </resultMap>
+    <!-- TODO TagMap多表映射-->
+
     <insert id="insertTagMap" parameterType="top.wetor.domain.TagMap">
         insert into tb_tag_map
-        values(#{t_id} ,#{a_id})
+        values(#{tagId} ,#{articleId})
     </insert>
     <insert id="insertTagMapByArticle" parameterType="Integer">
         <if test="tags!=null">
             insert tb_tag_map(t_id,a_id) values
             <foreach item="content" collection="tags.split(',')" separator="," >
                     (select t_id from tb_tag where t_content=#{content}
-                    ,#{a_id})
+                    ,#{articleId})
             </foreach>
         </if>
     </insert>
 
     <delete id="deleteTagMapByArticleId" parameterType="Integer">
         delete from tb_tag_map
-        Where a_id = #{a_id}
+        Where a_id = #{articleId}
     </delete>
 
 
 
-    <select id="selectTagByArticleId" parameterType="Integer" resultType="top.wetor.domain.Tag">
+    <select id="selectTagByArticleId" parameterType="Integer" resultMap="tagRM">
         select * from tb_tag
         where t_id in (
             select * from tb_tag_map
-            where a_id = #{a_id}
+            where a_id = #{articleId}
         )
     </select>
-    <select id="selectArticleByTagId" resultType="top.wetor.domain.Article">
+    <select id="selectArticleByTagId" resultMap="articleRM">
         select
         a_id,
         g_id,
@@ -57,7 +82,7 @@
         </if>
         from tb_article
         where find_in_set(
-        (select t_content from tb_tag where t_id=#{t_id})
+        (select t_content from tb_tag where t_id=#{tagId})
         ,a_tags
         )>0
         ORDER BY a_create_time

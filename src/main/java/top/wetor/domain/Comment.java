@@ -12,80 +12,80 @@ public class Comment {
        c_mail varchar2(40) not null,
        c_content clob,
     */
-    private Integer c_id;
-    private Integer c_cid;
-    private Integer a_id;
-    private Date   c_time;
-    private String c_name;
-    private String c_mail;
-    private String c_content;
+    private Integer id;
+    private Integer commentId;
+    private Integer articleId;
+    private Date   time;
+    private String name;
+    private String mail;
+    private String content;
 
-    public Integer getC_id() {
-        return c_id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setC_id(Integer c_id) {
-        this.c_id = c_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getC_cid() {
-        return c_cid;
+    public Integer getCommentId() {
+        return commentId;
     }
 
-    public void setC_cid(Integer c_cid) {
-        this.c_cid = c_cid;
+    public void setCommentId(Integer commentId) {
+        this.commentId = commentId;
     }
 
-    public Integer getA_id() {
-        return a_id;
+    public Integer getArticleId() {
+        return articleId;
     }
 
-    public void setA_id(Integer a_id) {
-        this.a_id = a_id;
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
     }
 
-    public Date getC_time() {
-        return c_time;
+    public Date getTime() {
+        return time;
     }
 
-    public void setC_time(Date c_time) {
-        this.c_time = c_time;
+    public void setTime(Date time) {
+        this.time = time;
     }
 
-    public String getC_name() {
-        return c_name;
+    public String getName() {
+        return name;
     }
 
-    public void setC_name(String c_name) {
-        this.c_name = c_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getC_mail() {
-        return c_mail;
+    public String getMail() {
+        return mail;
     }
 
-    public void setC_mail(String c_mail) {
-        this.c_mail = c_mail;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
-    public String getC_content() {
-        return c_content;
+    public String getContent() {
+        return content;
     }
 
-    public void setC_content(String c_content) {
-        this.c_content = c_content;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     @Override
     public String toString() {
         return "Comment{" +
-                "c_id=" + c_id +
-                ", c_cid=" + c_cid +
-                ", a_id=" + a_id +
-                ", c_time=" + c_time +
-                ", c_name='" + c_name + '\'' +
-                ", c_mail='" + c_mail + '\'' +
-                ", c_content='" + c_content + '\'' +
+                "id=" + id +
+                ", commentId=" + commentId +
+                ", articleId=" + articleId +
+                ", time=" + time +
+                ", name='" + name + '\'' +
+                ", mail='" + mail + '\'' +
+                ", content='" + content + '\'' +
                 '}';
     }
 }

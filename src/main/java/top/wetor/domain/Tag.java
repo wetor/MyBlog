@@ -6,40 +6,40 @@ public class Tag {
         t_content varchar(30) NOT NULL,
         t_count int
      */
-    private Integer t_id;
-    private String t_content;
-    private Integer t_count;
+    private Integer id;
+    private String content;
+    private Integer count;
 
-    public Integer getT_id() {
-        return t_id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setT_id(Integer t_id) {
-        this.t_id = t_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getT_content() {
-        return t_content;
+    public String getContent() {
+        return content;
     }
 
-    public void setT_content(String t_content) {
-        this.t_content = t_content;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public Integer getT_count() {
-        return t_count;
+    public Integer getCount() {
+        return count;
     }
 
-    public void setT_count(Integer t_count) {
-        this.t_count = t_count;
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     @Override
     public String toString() {
         return "Tag{" +
-                "t_id=" + t_id +
-                ", t_content='" + t_content + '\'' +
-                ", t_count=" + t_count +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", count=" + count +
                 '}';
     }
 }

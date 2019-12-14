@@ -3,15 +3,27 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.wetor.dao.CommentDao">
-    <insert id="insertComment" parameterType="top.wetor.domain.Group">
+
+    <resultMap id="commentRM" type="top.wetor.domain.Comment">
+        <id property="id" column="c_id"/>
+        <result property="commentId" column="c_cid"/>
+        <result property="articleId" column="a_id"/>
+        <result property="time" column="c_time"/>
+        <result property="name" column="c_name"/>
+        <result property="mail" column="c_mail"/>
+        <result property="content" column="c_content"/>
+    </resultMap>
+
+
+    <insert id="insertComment" parameterType="top.wetor.domain.Comment">
         insert into tb_comment
         values( null ,
-            #{c_cid},
-            #{a_id},
-            #{c_time},
-            #{c_name},
-            #{c_mail},
-            #{c_content}
+            #{commentId},
+            #{articleId},
+            #{time},
+            #{name},
+            #{mail},
+            #{content}
         )
     </insert>
     <delete id="deleteCommentById" parameterType="Integer">
@@ -21,23 +33,23 @@
     <update id="updateComment" parameterType="top.wetor.domain.Comment">
         update tb_comment
         <set>
-            <if test="c_cid!=null">c_cid=#{c_cid},</if>
-            <if test="a_id!=null">a_id=#{a_id},</if>
-            <if test="c_time!=null">c_time=#{c_time},</if>
-            <if test="c_name!=null">c_name=#{c_name},</if>
-            <if test="c_mail!=null">a_id=#{c_mail},</if>
-            <if test="c_content!=null">c_content=#{c_content},</if>
+            <if test="commentId!=null">c_cid=#{commentId},</if>
+            <if test="articleId!=null">a_id=#{articleId},</if>
+            <if test="time!=null">c_time=#{time},</if>
+            <if test="name!=null">c_name=#{name},</if>
+            <if test="mail!=null">a_id=#{mail},</if>
+            <if test="content!=null">c_content=#{content},</if>
         </set>
-        where c_id = #{c_id}
+        where c_id = #{id}
     </update>
-    <select id="selectCommentById" parameterType="Integer" resultType="top.wetor.domain.Comment">
+    <select id="selectCommentById" parameterType="Integer" resultMap="commentRM">
         select * from tb_comment
         where c_id = #{id}
     </select>
     <select id="selectCommentCount" resultType="integer">
         select count(*) from tb_comment
     </select>
-    <select id="selectCommentPage" resultType="top.wetor.domain.Comment">
+    <select id="selectCommentPage" resultMap="commentRM">
         select * from tb_comment
         where c_cid = null
         ORDER BY c_time
@@ -47,7 +59,7 @@
         limit #{begin},#{number}
     </select>
 
-    <select id="selectCommentAll" resultType="top.wetor.domain.Comment">
+    <select id="selectCommentAll" resultMap="commentRM">
         select * from tb_comment
         where c_cid = null
         ORDER BY c_time
@@ -56,7 +68,7 @@
         </if>
     </select>
 
-    <select id="selectCommentReplyPageById" resultType="top.wetor.domain.Comment">
+    <select id="selectCommentReplyPageById" resultMap="commentRM">
         select * from tb_comment
         where c_cid=#{id}
         ORDER BY c_time
@@ -66,7 +78,7 @@
         limit #{begin},#{number}
     </select>
 
-    <select id="selectCommentReplyAllById" resultType="top.wetor.domain.Comment">
+    <select id="selectCommentReplyAllById" resultMap="commentRM">
         select * from tb_comment
         where c_cid=#{id}
         ORDER BY c_time
@@ -75,7 +87,7 @@
         </if>
     </select>
 
-    <select id="selectArticleCommentAllById" resultType="top.wetor.domain.Comment">
+    <select id="selectArticleCommentAllById" resultMap="commentRM">
         select * from tb_comment
         where a_id=#{id} and c_cid=null
         ORDER BY c_time

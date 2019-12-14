@@ -3,11 +3,19 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.wetor.dao.TagDao">
+    <!-- 数据库表映射 -->
+    <resultMap id="tagRM" type="top.wetor.domain.Tag">
+        <id property="id" column="t_id"/>
+        <result property="content" column="t_content"/>
+        <result property="count" column="t_count"/>
+    </resultMap>
+    <!-- TODO Tag多表映射-->
+
     <insert id="insertTag" parameterType="top.wetor.domain.Tag">
         insert into tb_tag
         values( null ,
-            #{t_content} ,
-            #{t_count}
+            #{content} ,
+            #{count}
         )
     </insert>
     <delete id="deleteTagById" parameterType="Integer">
@@ -42,12 +50,12 @@
 
 
 
-    <select id="selectTagById" parameterType="Integer" resultType="top.wetor.domain.Tag">
+    <select id="selectTagById" parameterType="Integer" resultMap="tagRM">
         select * from tb_tag
         where t_id = #{id}
     </select>
 
-    <select id="selectTagByContent" parameterType="String" resultType="top.wetor.domain.Tag">
+    <select id="selectTagByContent" parameterType="String" resultMap="tagRM">
         select * from tb_tag
         where t_content = #{content}
     </select>

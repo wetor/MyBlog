@@ -6,60 +6,60 @@ public class Group {
        g_info varchar2(1200),
        g_rank count(10),
 */
-    private Integer g_id;
-    private String g_name;
-    private String g_info;
-    private Integer g_rank;
-    private Integer g_count;
+    private Integer id;
+    private String name;
+    private String info;
+    private Integer rank;
+    private Integer count;
 
-    public Integer getG_id() {
-        return g_id;
+    public Integer getId() {
+        return id;
     }
 
-    public void setG_id(Integer g_id) {
-        this.g_id = g_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getG_name() {
-        return g_name;
+    public String getName() {
+        return name;
     }
 
-    public void setG_name(String g_name) {
-        this.g_name = g_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getG_info() {
-        return g_info;
+    public String getInfo() {
+        return info;
     }
 
-    public void setG_info(String g_info) {
-        this.g_info = g_info;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
-    public Integer getG_rank() {
-        return g_rank;
+    public Integer getRank() {
+        return rank;
     }
 
-    public void setG_rank(Integer g_rank) {
-        this.g_rank = g_rank;
+    public void setRank(Integer rank) {
+        this.rank = rank;
     }
 
-    public Integer getG_count() {
-        return g_count;
+    public Integer getCount() {
+        return count;
     }
 
-    public void setG_count(Integer g_count) {
-        this.g_count = g_count;
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     @Override
     public String toString() {
         return "Group{" +
-                "g_id=" + g_id +
-                ", g_name='" + g_name + '\'' +
-                ", g_info='" + g_info + '\'' +
-                ", g_rank=" + g_rank +
-                ", g_count=" + g_count +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", info='" + info + '\'' +
+                ", rank=" + rank +
+                ", count=" + count +
                 '}';
     }
 }

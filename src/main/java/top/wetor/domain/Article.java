@@ -20,150 +20,151 @@ public class Article {
        a_is_hidden char(1),
        a_is_delete char(1),
 */
-    private Integer a_id;
-    private Integer g_id;
-    private Integer u_id;
-    private String a_title;
-    private String a_tags;
-    private Date a_create_time;
-    private Date a_modify_time;
-    private Integer a_look;
-    private Integer a_love;
-    private String a_cache_path;
-    private String a_content;
-    private boolean a_is_top;
-    private boolean a_is_hidden;
-    private boolean a_is_delete;
+    private Integer id;
+    private Integer groupId;
+    private Integer userId;
+    private String title;
+    private String tags;
+    private Date createTime;
+    private Date modifyTime;
+    private Integer lookNum;
+    private Integer loveNum;
+    private String cachePath;
+    private String content;
+    private Boolean isTop;
+    private Boolean isHidden;
+    private Boolean isDelete;
 
-    public Integer getA_id() {
-        return a_id;
+
+    public Integer getId() {
+        return id;
     }
 
-    public void setA_id(Integer a_id) {
-        this.a_id = a_id;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Integer getG_id() {
-        return g_id;
+    public Integer getGroupId() {
+        return groupId;
     }
 
-    public void setG_id(Integer g_id) {
-        this.g_id = g_id;
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
     }
 
-    public Integer getU_id() {
-        return u_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setU_id(Integer u_id) {
-        this.u_id = u_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public String getA_title() {
-        return a_title;
+    public String getTitle() {
+        return title;
     }
 
-    public void setA_title(String a_title) {
-        this.a_title = a_title;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getA_tags() {
-        return a_tags;
+    public String getTags() {
+        return tags;
     }
 
-    public void setA_tags(String a_tags) {
-        this.a_tags = a_tags;
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
-    public Date getA_create_time() {
-        return a_create_time;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setA_create_time(Date a_create_time) {
-        this.a_create_time = a_create_time;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getA_modify_time() {
-        return a_modify_time;
+    public Date getModifyTime() {
+        return modifyTime;
     }
 
-    public void setA_modify_time(Date a_modify_time) {
-        this.a_modify_time = a_modify_time;
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
     }
 
-    public Integer getA_look() {
-        return a_look;
+    public Integer getLookNum() {
+        return lookNum;
     }
 
-    public void setA_look(Integer a_look) {
-        this.a_look = a_look;
+    public void setLookNum(Integer lookNum) {
+        this.lookNum = lookNum;
     }
 
-    public Integer getA_love() {
-        return a_love;
+    public Integer getLoveNum() {
+        return loveNum;
     }
 
-    public void setA_love(Integer a_love) {
-        this.a_love = a_love;
+    public void setLoveNum(Integer loveNum) {
+        this.loveNum = loveNum;
     }
 
-    public String getA_cache_path() {
-        return a_cache_path;
+    public String getCachePath() {
+        return cachePath;
     }
 
-    public void setA_cache_path(String a_cache_path) {
-        this.a_cache_path = a_cache_path;
+    public void setCachePath(String cachePath) {
+        this.cachePath = cachePath;
     }
 
-    public String getA_content() {
-        return a_content;
+    public String getContent() {
+        return content;
     }
 
-    public void setA_content(String a_content) {
-        this.a_content = a_content;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public boolean isA_is_top() {
-        return a_is_top;
+    public boolean isTop() {
+        return isTop;
     }
 
-    public void setA_is_top(boolean a_is_top) {
-        this.a_is_top = a_is_top;
+    public void setTop(Boolean top) {
+        isTop = top;
     }
 
-    public boolean isA_is_hidden() {
-        return a_is_hidden;
+    public boolean isHidden() {
+        return isHidden;
     }
 
-    public void setA_is_hidden(boolean a_is_hidden) {
-        this.a_is_hidden = a_is_hidden;
+    public void setHidden(Boolean hidden) {
+        isHidden = hidden;
     }
 
-    public boolean isA_is_delete() {
-        return a_is_delete;
+    public boolean isDelete() {
+        return isDelete;
     }
 
-    public void setA_is_delete(boolean a_is_delete) {
-        this.a_is_delete = a_is_delete;
+    public void setDelete(Boolean delete) {
+        isDelete = delete;
     }
 
     @Override
     public String toString() {
         return "Article{" +
-                "a_id=" + a_id +
-                ", g_id=" + g_id +
-                ", u_id=" + u_id +
-                ", a_title='" + a_title + '\'' +
-                ", a_tags='" + a_tags + '\'' +
-                ", a_create_time=" + a_create_time +
-                ", a_modify_time=" + a_modify_time +
-                ", a_look=" + a_look +
-                ", a_love=" + a_love +
-                ", a_cache_path='" + a_cache_path + '\'' +
-                ", a_content='" + a_content + '\'' +
-                ", a_is_top=" + a_is_top +
-                ", a_is_hidden=" + a_is_hidden +
-                ", a_is_delete=" + a_is_delete +
+                "id=" + id +
+                ", groupId=" + groupId +
+                ", userId=" + userId +
+                ", title='" + title + '\'' +
+                ", tags='" + tags + '\'' +
+                ", createTime=" + createTime +
+                ", modifyTime=" + modifyTime +
+                ", lookNum=" + lookNum +
+                ", loveNum=" + loveNum +
+                ", cachePath='" + cachePath + '\'' +
+                ", content='" + content + '\'' +
+                ", isTop=" + isTop +
+                ", isHidden=" + isHidden +
+                ", isDelete=" + isDelete +
                 '}';
     }
 }

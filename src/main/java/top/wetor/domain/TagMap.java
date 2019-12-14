@@ -5,30 +5,30 @@ public class TagMap {
     t_id int not null,
     a_id int not null,
      */
-    private Integer t_id;
-    private Integer a_id;
+    private Integer tagId;
+    private Integer articleId;
 
-    public Integer getT_id() {
-        return t_id;
+    public Integer getTagId() {
+        return tagId;
     }
 
-    public void setT_id(Integer t_id) {
-        this.t_id = t_id;
+    public void setTagId(Integer tagId) {
+        this.tagId = tagId;
     }
 
-    public Integer getA_id() {
-        return a_id;
+    public Integer getArticleId() {
+        return articleId;
     }
 
-    public void setA_id(Integer a_id) {
-        this.a_id = a_id;
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
     }
 
     @Override
     public String toString() {
         return "TagMap{" +
-                "t_id=" + t_id +
-                ", a_id=" + a_id +
+                "tagId=" + tagId +
+                ", articleId=" + articleId +
                 '}';
     }
 }

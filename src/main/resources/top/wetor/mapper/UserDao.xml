@@ -3,13 +3,22 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.wetor.dao.UserDao">
+    <!-- 数据库表映射 -->
+    <resultMap id="userRM" type="top.wetor.domain.User">
+        <id property="id" column="u_id"/>
+        <result property="name" column="u_name"/>
+        <result property="mail" column="u_mail"/>
+        <result property="password" column="u_password"/>
+        <result property="permission" column="u_permission"/>
+    </resultMap>
+
     <insert id="insertUser" parameterType="top.wetor.domain.User">
         insert into tb_user
         values( null ,
-            #{u_name} ,
-            #{u_mail},
-            #{u_password},
-            #{u_permission}
+            #{name} ,
+            #{mail},
+            #{password},
+            #{permission}
         )
     </insert>
     <delete id="deleteUserById" parameterType="Integer">
@@ -19,26 +28,26 @@
     <update id="updateUser" parameterType="top.wetor.domain.User">
         update tb_user
         <set>
-            <if test="u_name!=null">u_name=#{u_name},</if>
-            <if test="u_mail!=null">u_mail=#{u_mail},</if>
-            <if test="u_password!=null">u_password=#{u_password},</if>
-            <if test="u_permission!=null">u_permission=#{u_permission},</if>
+            <if test="name!=null">u_name=#{name},</if>
+            <if test="mail!=null">u_mail=#{mail},</if>
+            <if test="password!=null">u_password=#{password},</if>
+            <if test="permission!=null">u_permission=#{permission},</if>
         </set>
         where u_id = #{u_id}
     </update>
-    <select id="selectUserById" parameterType="Integer" resultType="top.wetor.domain.User">
+    <select id="selectUserById" parameterType="Integer" resultMap="userRM">
         select * from tb_user
         where u_id = #{id}
     </select>
 
-    <select id="selectUserByName" parameterType="String" resultType="top.wetor.domain.User">
+    <select id="selectUserByName" parameterType="String" resultMap="userRM">
         select * from tb_user
-        where u_name like CONCAT('%',#{name},'%')
+        where u_name like concat('%',#{name},'%')
     </select>
 
-    <select id="selectUserLogin" parameterType="top.wetor.domain.User" resultType="top.wetor.domain.User">
+    <select id="selectUserLogin" parameterType="top.wetor.domain.User" resultMap="userRM">
         select * from tb_user
-        where u_name = #{u_name} and u_password = #{u_password}
+        where u_name = #{name} and u_password = #{password}
     </select>
 
 

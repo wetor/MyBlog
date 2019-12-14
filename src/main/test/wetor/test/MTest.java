@@ -5,20 +5,19 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import top.wetor.dao.ArticleDao;
+import top.wetor.dao.TagDao;
+import top.wetor.dao.TagMapDao;
+import top.wetor.dao.UserDao;
 import top.wetor.domain.Article;
 import top.wetor.domain.User;
-import top.wetor.dao.ArticleDao;
-import top.wetor.dao.TagMapDao;
-import top.wetor.dao.TagDao;
-import top.wetor.dao.UserDao;
 import top.wetor.service.IUserService;
-import top.wetor.service.impl.UserServiceImpl;
 
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 /**
  * junit-spring
  * 1 pom中添加spring-test
