@@ -1,4 +1,4 @@
-package top.wetor.bean;
+package top.wetor.domain;
 
 public class Tag {
     /*

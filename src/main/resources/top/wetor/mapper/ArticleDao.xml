@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="top.wetor.mapper.ArticleMapper">
+<mapper namespace="top.wetor.dao.ArticleDao">
 
-    <insert id="insertArticle" parameterType="Article">
+    <insert id="insertArticle" parameterType="top.wetor.domain.Article">
         insert into tb_article
         values( null ,
             #{g_id},
@@ -28,7 +28,7 @@
         Where a_id = #{id}
     </delete>
 
-    <update id="updateArticle" parameterType="Article">
+    <update id="updateArticle" parameterType="top.wetor.domain.Article">
         update tb_article
         <set>
             <if test="g_id !=null">g_id= #{g_id},</if>
@@ -49,7 +49,7 @@
         where a_id = #{a_id}
     </update>
 
-    <select id="selectArticleById" parameterType="Integer" resultType="Article">
+    <select id="selectArticleById" parameterType="Integer" resultType="top.wetor.domain.Article">
         select * from tb_article
         where a_id = #{id}
     </select>
@@ -73,7 +73,7 @@
             a_is_delete
     </sql>
 
-    <select id="selectArticlePage" resultType="Article">
+    <select id="selectArticlePage" resultType="top.wetor.domain.Article">
         <include refid="selectWithoutContent"/>
         <if test="param3==null or param3==0">
         </if>
@@ -93,7 +93,7 @@
 
 
 
-    <select id="selectArticleAll" resultType="Article">
+    <select id="selectArticleAll" resultType="top.wetor.domain.Article">
         <include refid="selectWithoutContent"/>
         <if test="param1==null or param1==0">
         </if>
@@ -109,7 +109,7 @@
             desc
         </if>
     </select>
-    <select id="selectArticleAllByType" resultType="Article">
+    <select id="selectArticleAllByType" resultType="top.wetor.domain.Article">
         <include refid="selectWithoutContent"/>
         <!-- null/0:极简(不含文章内容) 1:简略(含文章内容摘要) 2:完整(包含文章内容) -->
         <if test="param3==null or param3==0">
@@ -143,7 +143,7 @@
         </if>
     </select>
 
-    <select id="selectArticlePageByType" resultType="Article">
+    <select id="selectArticlePageByType" resultType="top.wetor.domain.Article">
         <include refid="selectWithoutContent"/>
         <!-- null/0:极简(不含文章内容) 1:简略(含文章内容摘要) 2:完整(包含文章内容) -->
         <if test="param5==null or param5==0">

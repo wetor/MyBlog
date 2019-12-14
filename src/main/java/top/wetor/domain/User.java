@@ -1,4 +1,4 @@
-package top.wetor.bean;
+package top.wetor.domain;
 
 public class User {
     /*u_id number(10) not null,--主键

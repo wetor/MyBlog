@@ -1,4 +1,4 @@
-package top.wetor.bean;
+package top.wetor.domain;
 
 public class Group {
 /*  g_id count(10) not null,--主键

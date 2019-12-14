@@ -1,43 +1,59 @@
 package wetor.test;
 
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
-import top.wetor.bean.Article;
-import top.wetor.bean.User;
-import top.wetor.mapper.ArticleMapper;
-import top.wetor.mapper.TagMapMapper;
-import top.wetor.mapper.TagMapper;
-import top.wetor.mapper.UserMapper;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import top.wetor.domain.Article;
+import top.wetor.domain.User;
+import top.wetor.dao.ArticleDao;
+import top.wetor.dao.TagMapDao;
+import top.wetor.dao.TagDao;
+import top.wetor.dao.UserDao;
+import top.wetor.service.IUserService;
+import top.wetor.service.impl.UserServiceImpl;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
 
+/**
+ * junit-spring
+ * 1 pom中添加spring-test
+ * 2 @RunWith(SpringJUnit4ClassRunner.class)指定测试类
+ * 3 @ContextConfiguration()指定spring的xml或配置类
+ * 		locations:指定xml文件位置，加上classpath关键字
+ * 		classes:指定配置类
+ *
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "classpath:ApplicationContext.xml")
 public class MTest {
-	private static SqlSessionFactory ssf;
+	@Autowired
+	private SqlSessionFactory ssf;
 
-	static {
-		String resource = "sqlMapConfig.xml";
-		//读取配置文件
-		InputStream in = null;
-		try {
-			in = Resources.getResourceAsStream(resource );
-			SqlSessionFactoryBuilder ssfb = new SqlSessionFactoryBuilder();
-			ssf = ssfb.build(in);
-			in.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	@Autowired
+	private IUserService userService;
+
+
+	@Test
+	public void userServiceTest(){
+		User user=new User();
+		user.setU_id(null);
+		user.setU_name("xxxxx");
+		user.setU_mail("2929339419@qq.com");
+		user.setU_password("123456");
+		userService.insertUser(user);
 	}
 	@Test
-	public void userTest(){
+	public void userTest() throws Exception {
+
 		SqlSession session = ssf.openSession();
-		UserMapper mapper = session.getMapper(UserMapper.class);
+		UserDao mapper = session.getMapper(UserDao.class);
 		User user=new User();
-		user.setU_id(0);
+		user.setU_id(null);
 		user.setU_name("wetor");
 		user.setU_mail("2929339419@qq.com");
 		user.setU_password("123456");
@@ -45,9 +61,9 @@ public class MTest {
 		session.commit();
 	}
 	@Test
-	public void mapperTest(){
+	public void articleTest() throws Exception {
 		SqlSession session = ssf.openSession();
-		ArticleMapper mapper = session.getMapper(ArticleMapper.class);
+		ArticleDao mapper = session.getMapper(ArticleDao.class);
 		Article article=new Article();
 		article.setG_id(1);
 		article.setU_id(1);
@@ -62,16 +78,16 @@ public class MTest {
 		session.commit();
 	}
 	@Test
-	public void mapperTestTag(){
+	public void tagTest() throws Exception {
 		SqlSession session = ssf.openSession();
-		TagMapper mapper = session.getMapper(TagMapper.class);
+		TagDao mapper = session.getMapper(TagDao.class);
 		mapper.updateTagByString("tag1,tag2,tag3");
 		session.commit();
 	}
 	@Test
-	public void mapperTestTagAll(){
+	public void tagAllTest()throws Exception {
 		SqlSession session = ssf.openSession();
-		TagMapper mapper = session.getMapper(TagMapper.class);
+		TagDao mapper = session.getMapper(TagDao.class);
 		ArrayList<String> ls = new ArrayList<String>();
 		ls.add("aaa,bbb,faasf");
 		ls.add("ccc,afasd,faasf");
@@ -80,9 +96,9 @@ public class MTest {
 		session.commit();
 	}
 	@Test
-	public void mapperTestTagMap(){
+	public void tagMapTest()throws Exception {
 		SqlSession session = ssf.openSession();
-		TagMapMapper mapper = session.getMapper(TagMapMapper.class);
+		TagMapDao mapper = session.getMapper(TagMapDao.class);
 		List<Article> al= mapper.selectArticleByTagId(87,null,null);
 		for (Article article:al) {
 			System.out.println(article);

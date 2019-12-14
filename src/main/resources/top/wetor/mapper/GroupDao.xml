@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="top.wetor.mapper.GroupMapper">
-    <insert id="insertGroup" parameterType="top.wetor.bean.Group">
+<mapper namespace="top.wetor.dao.GroupDao">
+    <insert id="insertGroup" parameterType="top.wetor.domain.Group">
         insert into tb_group
         values( null , #{g_name} , #{g_info}, #{g_rank}, 0)
     </insert>
@@ -11,7 +11,7 @@
         delete from tb_group
         Where g_id = #{id}
     </delete>
-    <update id="updateGroup" parameterType="top.wetor.bean.Group">
+    <update id="updateGroup" parameterType="top.wetor.domain.Group">
         update tb_group
         <set>
             <if test="g_name!=null">g_name=#{g_name},</if>
@@ -21,7 +21,7 @@
         </set>
         where g_id = #{g_id}
     </update>
-    <select id="selectGroupById" parameterType="Integer" resultType="top.wetor.bean.Group">
+    <select id="selectGroupById" parameterType="Integer" resultType="top.wetor.domain.Group">
         select * from tb_group
         where g_id = #{id}
     </select>
@@ -34,13 +34,13 @@
     <select id="selectGroupCount" resultType="integer">
         select count(*) from tb_group
     </select>
-    <select id="selectGroupPage" resultType="top.wetor.bean.Group">
+    <select id="selectGroupPage" resultType="top.wetor.domain.Group">
         select * from tb_group
         ORDER BY g_rank
         limit #{begin},#{number}
     </select>
 
-    <select id="selectGroupAll" resultType="top.wetor.bean.Group">
+    <select id="selectGroupAll" resultType="top.wetor.domain.Group">
         select * from tb_group
     </select>
 

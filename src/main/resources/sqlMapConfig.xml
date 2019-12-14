@@ -5,34 +5,4 @@
 
 <configuration>
 
-    <properties resource="db.properties"/>
-
-  <typeAliases>
-    <package name="top.wetor.bean"/>
-  </typeAliases>
- <!-- 在集成spring 是不用 -->
-  <environments default="development">
-
-    <environment id="development">
-
-    <!-- 使用jdbc的事务 -->
-      <transactionManager type="JDBC"/>
-      <!-- 使用连接池 连接数据库 -->
-      <dataSource type="POOLED">
-        <property name="driver" value="${jdbc.driver}"/>
-        <property name="url" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
-      </dataSource>
-    </environment>
-  </environments>
-
-  <!-- 配置映射器的位置 -->
-  <mappers>
-    <mapper resource="top/wetor/mapper/UserMapper.xml"/>
-   	<mapper resource="top/wetor/mapper/ArticleMapper.xml"/>
-    <mapper resource="top/wetor/mapper/TagMapper.xml"/>
-    <mapper resource="top/wetor/mapper/TagMapMapper.xml"/>
-  </mappers>
-
 </configuration>

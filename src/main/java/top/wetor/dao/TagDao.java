@@ -1,11 +1,14 @@
-package top.wetor.mapper;
+package top.wetor.dao;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import top.wetor.bean.Tag;
+import org.springframework.stereotype.Component;
+import top.wetor.domain.Tag;
 
 import java.util.List;
-
-public interface TagMapper {
+@Component
+@Mapper
+public interface TagDao {
     /**
      * 创建标签
      * @param tag Tag

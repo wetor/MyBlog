@@ -1,11 +1,15 @@
-package top.wetor.mapper;
+package top.wetor.dao;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import top.wetor.bean.Article;
+import org.springframework.stereotype.Component;
+import top.wetor.domain.Article;
 
 import java.util.List;
 
-public interface ArticleMapper {
+@Component
+@Mapper
+public interface ArticleDao {
     /**
      * 新建文章
      * @param article 文章

@@ -1,11 +1,14 @@
-package top.wetor.mapper;
+package top.wetor.dao;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import top.wetor.bean.Comment;
+import org.springframework.stereotype.Component;
+import top.wetor.domain.Comment;
 
 import java.util.List;
-
-public interface CommentMapper {
+@Component
+@Mapper
+public interface CommentDao {
     /**
      * 新建评论
      * @param comment 评论

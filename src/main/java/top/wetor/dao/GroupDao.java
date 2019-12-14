@@ -1,12 +1,15 @@
-package top.wetor.mapper;
+package top.wetor.dao;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import top.wetor.bean.Group;
+import org.springframework.stereotype.Component;
+import top.wetor.domain.Group;
 
 import java.util.List;
 
-
-public interface GroupMapper {
+@Component
+@Mapper
+public interface GroupDao {
     /**
      * 新建组
      * @param group 组

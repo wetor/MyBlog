@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="top.wetor.mapper.UserMapper">
-    <insert id="insertUser" parameterType="User">
+<mapper namespace="top.wetor.dao.UserDao">
+    <insert id="insertUser" parameterType="top.wetor.domain.User">
         insert into tb_user
         values( null ,
             #{u_name} ,
@@ -16,7 +16,7 @@
         delete from tb_user
         Where u_id = #{id}
     </delete>
-    <update id="updateUser" parameterType="User">
+    <update id="updateUser" parameterType="top.wetor.domain.User">
         update tb_user
         <set>
             <if test="u_name!=null">u_name=#{u_name},</if>
@@ -26,17 +26,17 @@
         </set>
         where u_id = #{u_id}
     </update>
-    <select id="selectUserById" parameterType="Integer" resultType="User">
+    <select id="selectUserById" parameterType="Integer" resultType="top.wetor.domain.User">
         select * from tb_user
         where u_id = #{id}
     </select>
 
-    <select id="selectUserByName" parameterType="String" resultType="User">
+    <select id="selectUserByName" parameterType="String" resultType="top.wetor.domain.User">
         select * from tb_user
         where u_name like CONCAT('%',#{name},'%')
     </select>
 
-    <select id="selectUserLogin" parameterType="User" resultType="User">
+    <select id="selectUserLogin" parameterType="top.wetor.domain.User" resultType="top.wetor.domain.User">
         select * from tb_user
         where u_name = #{u_name} and u_password = #{u_password}
     </select>
