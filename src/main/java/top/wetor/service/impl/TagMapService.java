@@ -8,7 +8,7 @@ import top.wetor.domain.Tag;
 import top.wetor.service.ITagMapService;
 
 import java.util.List;
-@Service
+@Service("tagMapService")
 public class TagMapService implements ITagMapService {
     @Autowired
     private TagMapDao tagMapDao;

@@ -1,12 +1,13 @@
 package top.wetor.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import top.wetor.dao.TagDao;
 import top.wetor.domain.Tag;
 import top.wetor.service.ITagService;
 
 import java.util.List;
-
+@Service("tagService")
 public class TagService implements ITagService {
     @Autowired
     private TagDao tagDao;
@@ -22,8 +23,8 @@ public class TagService implements ITagService {
     }
 
     @Override
-    public void deleteTagByContent(String content) {
-        tagDao.deleteTagByContent(content);
+    public void deleteTagByString(String tags) {
+        tagDao.deleteTagByString(tags);
     }
 
     @Override

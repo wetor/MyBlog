@@ -5,21 +5,26 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-        https://www.springframework.org/schema/beans/spring-beans.xsd
-        http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://mybatis.org/schema/mybatis-spring
+        http://mybatis.org/schema/mybatis-spring.xsd
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd
         http://www.springframework.org/schema/aop
-        https://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/aop/spring-aop.xsd
         http://www.springframework.org/schema/tx
-		http://www.springframework.org/schema/tx/spring-tx.xsd ">
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 
-    <!-- 扫描mapper接口 -->
-    <mybatis:scan base-package="top.wetor.dao" />
-    <!-- 开启spring注解-->
-    <context:component-scan base-package="top.wetor.*"/>
+
+    <!--开启注解的扫描，希望处理service和dao，controller不需要Spring框架去处理-->
+    <context:component-scan base-package="top.wetor">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+
     <!-- 数据库链接信息 -->
     <context:property-placeholder location="classpath:db.properties"/>
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -64,4 +69,7 @@
         <aop:advisor advice-ref="txAdvice" pointcut-ref="transactionPointCut"/>
     </aop:config>
 
+
+    <!-- 扫描mapper接口 -->
+    <mybatis:scan base-package="top.wetor.dao" />
 </beans>

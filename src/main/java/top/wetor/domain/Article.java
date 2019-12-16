@@ -1,11 +1,13 @@
 package top.wetor.domain;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Li
  */
-public class Article {
+public class Article implements Serializable {
 /*     a_id number(10) not null,--主键
        g_id number(10) not null,--外键，组id
        u_id number(10) not null,--外键，用户id
@@ -35,6 +37,8 @@ public class Article {
     private Boolean isHidden;
     private Boolean isDelete;
 
+    //顶层评论列表
+    private List<Comment> commentList;
 
     public Integer getId() {
         return id;
@@ -124,7 +128,7 @@ public class Article {
         this.content = content;
     }
 
-    public boolean isTop() {
+    public Boolean getTop() {
         return isTop;
     }
 
@@ -132,7 +136,7 @@ public class Article {
         isTop = top;
     }
 
-    public boolean isHidden() {
+    public Boolean getHidden() {
         return isHidden;
     }
 
@@ -140,12 +144,20 @@ public class Article {
         isHidden = hidden;
     }
 
-    public boolean isDelete() {
+    public Boolean getDelete() {
         return isDelete;
     }
 
     public void setDelete(Boolean delete) {
         isDelete = delete;
+    }
+
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
     }
 
     @Override
@@ -165,6 +177,7 @@ public class Article {
                 ", isTop=" + isTop +
                 ", isHidden=" + isHidden +
                 ", isDelete=" + isDelete +
+                ", commentList=" + commentList +
                 '}';
     }
 }

@@ -1,6 +1,8 @@
 package top.wetor.domain;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     /*u_id number(10) not null,--主键
        u_name varchar2(30) not null,
        u_mail varchar2(40) not null,

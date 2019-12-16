@@ -7,12 +7,15 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.bind.annotation.RequestMapping;
 import top.wetor.dao.ArticleDao;
 import top.wetor.dao.TagDao;
 import top.wetor.dao.TagMapDao;
 import top.wetor.dao.UserDao;
 import top.wetor.domain.Article;
 import top.wetor.domain.User;
+import top.wetor.service.IArticleService;
+import top.wetor.service.ITagService;
 import top.wetor.service.IUserService;
 
 import java.util.ArrayList;
@@ -28,7 +31,7 @@ import java.util.List;
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:ApplicationContext.xml")
+@ContextConfiguration(locations = "classpath:applicationContext.xml")
 public class MTest {
 	@Autowired
 	private SqlSessionFactory ssf;
@@ -36,14 +39,42 @@ public class MTest {
 	@Autowired
 	private IUserService userService;
 
+	@Autowired
+	private IArticleService articleService;
 
+	@Autowired
+	private ITagService tagService;
+
+
+	@Test
+	public void tagService_deleteTagByString(){
+		tagService.deleteTagByString("ccc,ddd");
+	}
+	@Test
+	public void articleService_deleteArticleById(){
+
+		articleService.deleteArticleById(22);
+	}
+	@Test
+	public void articleService_insertArticle() throws Exception {
+		Article article=new Article();
+		article.setGroupId(1);
+		article.setUserId(1);
+		article.setTitle("title22223333");
+		article.setTags("tag3,tag2,tag1");
+		article.setCreateTime(new Date());
+		article.setModifyTime(new Date());
+		article.setLookNum(1);
+		article.setLoveNum(1);
+		articleService.insertArticle(article);
+	}
 	@Test
 	public void userServiceTest(){
 		User user=new User();
-		user.setU_id(null);
-		user.setU_name("xxxxx");
-		user.setU_mail("2929339419@qq.com");
-		user.setU_password("123456");
+		user.setId(null);
+		user.setName("xxxxx");
+		user.setMail("2929339419@qq.com");
+		user.setPassword("123456");
 		userService.insertUser(user);
 	}
 	@Test
@@ -52,10 +83,10 @@ public class MTest {
 		SqlSession session = ssf.openSession();
 		UserDao mapper = session.getMapper(UserDao.class);
 		User user=new User();
-		user.setU_id(null);
-		user.setU_name("wetor");
-		user.setU_mail("2929339419@qq.com");
-		user.setU_password("123456");
+		user.setId(null);
+		user.setName("wetor");
+		user.setMail("2929339419@qq.com");
+		user.setPassword("123456");
 		mapper.insertUser(user);
 		session.commit();
 	}
@@ -64,14 +95,14 @@ public class MTest {
 		SqlSession session = ssf.openSession();
 		ArticleDao mapper = session.getMapper(ArticleDao.class);
 		Article article=new Article();
-		article.setG_id(1);
-		article.setU_id(1);
-		article.setA_title("title22223333");
-		article.setA_tags("tag3,tag2,tag1");
-		article.setA_create_time(new Date());
-		article.setA_modify_time(new Date());
-		article.setA_look(1);
-		article.setA_love(1);
+		article.setId(1);
+		article.setUserId(1);
+		article.setTitle("title22223333");
+		article.setTags("tag3,tag2,tag1");
+		article.setCreateTime(new Date());
+		article.setModifyTime(new Date());
+		article.setLookNum(1);
+		article.setLoveNum(1);
 
 		mapper.insertArticle(article);
 		session.commit();

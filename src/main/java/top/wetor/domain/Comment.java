@@ -1,8 +1,10 @@
 package top.wetor.domain;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
-public class Comment {
+public class Comment implements Serializable {
     /*
     c_id number(10) not null,--主键
        c_cid number(10),--父评论id
@@ -19,6 +21,8 @@ public class Comment {
     private String name;
     private String mail;
     private String content;
+    //子评论列表
+    private List<Comment> commentList;
 
     public Integer getId() {
         return id;
@@ -76,6 +80,14 @@ public class Comment {
         this.content = content;
     }
 
+    public List<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setCommentList(List<Comment> commentList) {
+        this.commentList = commentList;
+    }
+
     @Override
     public String toString() {
         return "Comment{" +
@@ -86,6 +98,7 @@ public class Comment {
                 ", name='" + name + '\'' +
                 ", mail='" + mail + '\'' +
                 ", content='" + content + '\'' +
+                ", commentList=" + commentList +
                 '}';
     }
 }

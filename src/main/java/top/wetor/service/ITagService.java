@@ -16,10 +16,10 @@ public interface ITagService {
      */
     void deleteTagById(Integer id);
     /**
-     * 通过Content删除标签
-     * @param content Content
+     * 通过tags删除标签
+     * @param tags tags
      */
-    void deleteTagByContent(String content);
+    void deleteTagByString(String tags);
     /**
      * 通过String更新标签
      * @param tags TagString

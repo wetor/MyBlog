@@ -37,7 +37,7 @@
         <if test="tags!=null">
             insert tb_tag_map(t_id,a_id) values
             <foreach item="content" collection="tags.split(',')" separator="," >
-                    (select t_id from tb_tag where t_content=#{content}
+                    ((select t_id from tb_tag where t_content=#{content})
                     ,#{articleId})
             </foreach>
         </if>

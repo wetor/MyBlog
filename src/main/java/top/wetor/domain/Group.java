@@ -1,6 +1,9 @@
 package top.wetor.domain;
 
-public class Group {
+import java.io.Serializable;
+import java.util.List;
+
+public class Group implements Serializable {
 /*  g_id count(10) not null,--主键
        g_name varchar2(60) not null,
        g_info varchar2(1200),
@@ -11,6 +14,8 @@ public class Group {
     private String info;
     private Integer rank;
     private Integer count;
+    //组内文章
+    private List<Article> articleList;
 
     public Integer getId() {
         return id;
@@ -52,6 +57,14 @@ public class Group {
         this.count = count;
     }
 
+    public List<Article> getArticleList() {
+        return articleList;
+    }
+
+    public void setArticleList(List<Article> articleList) {
+        this.articleList = articleList;
+    }
+
     @Override
     public String toString() {
         return "Group{" +
@@ -60,6 +73,7 @@ public class Group {
                 ", info='" + info + '\'' +
                 ", rank=" + rank +
                 ", count=" + count +
+                ", articleList=" + articleList +
                 '}';
     }
 }

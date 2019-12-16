@@ -7,7 +7,7 @@ import top.wetor.domain.Group;
 import top.wetor.service.IGroupService;
 
 import java.util.List;
-@Service
+@Service("groupService")
 public class GroupService implements IGroupService {
     @Autowired
     private GroupDao groupDao;

@@ -1,6 +1,8 @@
 package top.wetor.domain;
 
-public class TagMap {
+import java.io.Serializable;
+
+public class TagMap implements Serializable {
     /*
     t_id int not null,
     a_id int not null,

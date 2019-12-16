@@ -1,6 +1,7 @@
 package top.wetor.service;
 
 import top.wetor.domain.Article;
+import top.wetor.utils.ArticleMode;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public interface IArticleService {
      * @param mode null/0:极简(不含文章内容) 1:简略(含文章内容摘要) 2:完整(包含文章内容)
      * @return 文章
      */
-    Article selectArticleById(Integer id,Integer mode);
+    Article selectArticleById(Integer id, ArticleMode mode);
     /**
      * 查询文章数
      * @return 文章数
@@ -36,38 +37,36 @@ public interface IArticleService {
      * 查询按时间排序的一定数量文章
      * @param begin 开始序号，从0开始
      * @param number 个数
-     * @param mode null/0:极简(不含文章内容) 1:简略(含文章内容摘要) 2:完整(包含文章内容)
+     * @param mode MINI:极简(不含文章内容) SIMPLE:简略(含文章内容摘要) COMPLETE:完整(包含文章内容)
      * @param asc 是否正序排列(由旧到新)
      * @return 文章列表
      */
-    List<Article> selectArticlePage(Integer begin, Integer number, Integer mode, Boolean asc);
+    List<Article> selectArticlePage(Integer begin, Integer number, ArticleMode mode, Boolean asc);
 
     /**
      * 查询全部文章
-     * @param mode null/0:极简(不含文章内容) 1:简略(含文章内容摘要) 2:完整(包含文章内容)
+     * @param mode MINI:极简(不含文章内容) SIMPLE:简略(含文章内容摘要) COMPLETE:完整(包含文章内容)
      * @param asc 是否正序排列(由旧到新)
      * @return 全部文章列表
      */
-    List<Article> selectArticleAll(Integer mode, Boolean asc);
+    List<Article> selectArticleAll(ArticleMode mode, Boolean asc);
     /**
      * 查询属于指定对象的全部文章
-     * @param type 0:User  1:Group  2:Tag
-     * @param id id
-     * @param mode null/0:极简(不含文章内容) 1:简略(含文章内容摘要) 2:完整(包含文章内容)
+     * @param bean User  Group  Tag
+     * @param mode MINI:极简(不含文章内容) SIMPLE:简略(含文章内容摘要) COMPLETE:完整(包含文章内容)
      * @param asc 是否正序排列(由旧到新)
      * @return 全部文章列表
      */
-    List<Article> selectArticleAllByType(Integer type,Integer id, Integer mode, Boolean asc);
+    List<Article> selectArticleAllByBean(Object bean, ArticleMode mode, Boolean asc);
     /**
      * 查询属于指定对象的一定数量文章
-     * @param type 0:User  1:Group  2:Tag
-     * @param id id
+     * @param bean User  Group  Tag
      * @param begin 开始序号，从0开始
      * @param number 个数
-     * @param mode null/0:极简(不含文章内容) 1:简略(含文章内容摘要) 2:完整(包含文章内容)
+     * @param mode MINI:极简(不含文章内容) SIMPLE:简略(含文章内容摘要) COMPLETE:完整(包含文章内容)
      * @param asc 是否正序排列(由旧到新)
      * @return 文章列表
      */
-    List<Article> selectArticlePageByType(Integer type,Integer id, Integer begin, Integer number, Integer mode, Boolean asc);
+    List<Article> selectArticlePageByBean(Object bean, Integer begin, Integer number, ArticleMode mode, Boolean asc);
 
 }

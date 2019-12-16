@@ -7,7 +7,7 @@ import top.wetor.domain.Comment;
 import top.wetor.service.ICommentService;
 
 import java.util.List;
-@Service
+@Service("commentService")
 public class CommentServiceImpl implements ICommentService {
     @Autowired
     private CommentDao commentDao;

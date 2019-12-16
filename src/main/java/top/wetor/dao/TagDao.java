@@ -20,10 +20,10 @@ public interface TagDao {
      */
     void deleteTagById(Integer id);
     /**
-     * 通过Content删除标签
-     * @param content Content
+     * 通过tag列表删除标签
+     * @param tags tags
      */
-    void deleteTagByContent(String content);
+    void deleteTagByString(@Param("tags") String tags);
     /**
      * 通过String更新标签
      * @param tags TagString

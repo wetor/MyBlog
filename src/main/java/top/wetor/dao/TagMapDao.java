@@ -20,7 +20,7 @@ public interface TagMapDao {
      * @param a_id 文章id
      * @param tags Tag
      */
-    void insertTagMapByArticle(@Param("a_id") Integer a_id,@Param("tags") String tags);
+    void insertTagMapByArticle(@Param("articleId") Integer a_id,@Param("tags") String tags);
     /**
      * 用Article id删除标签映射
      * @param a_id Tag
@@ -39,7 +39,7 @@ public interface TagMapDao {
      * @param asc 是否正序排列(由旧到新)
      * @return 全部文章列表
      */
-    List<Article> selectArticleByTagId(@Param("t_id")Integer t_id,@Param("mode")Integer mode, @Param("asc")Boolean asc);
+    List<Article> selectArticleByTagId(@Param("tagId")Integer t_id,@Param("mode")Integer mode, @Param("asc")Boolean asc);
 
 
 }

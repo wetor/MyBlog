@@ -20,6 +20,7 @@ public interface ArticleDao {
      * @param id id
      */
     void deleteArticleById(Integer id);
+
     /**
      * 修改文章信息
      * @param article 文章
@@ -32,6 +33,12 @@ public interface ArticleDao {
      * @return 文章
      */
     Article selectArticleById(@Param("id")Integer id, @Param("mode")Integer mode);
+
+    /**
+     * 查询即将插入的文章id
+     * @return 文章id
+     */
+    Integer selectNextArticleId();
     /**
      * 查询文章数
      * @return 文章数

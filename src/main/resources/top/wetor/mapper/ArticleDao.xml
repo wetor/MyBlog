@@ -39,6 +39,9 @@
             a_is_hidden,
             a_is_delete
     </sql>
+
+
+
     <insert id="insertArticle" parameterType="top.wetor.domain.Article">
         insert into tb_article
         values( null ,
@@ -88,6 +91,15 @@
         select * from tb_article
         where a_id = #{id}
     </select>
+
+
+    <select id="selectNextArticleId" resultType="Integer">
+        SELECT auto_increment FROM information_schema.tables
+        where table_schema=(
+            select database()
+        ) and table_name="tb_article";
+    </select>
+
     <select id="selectArticleCount" resultType="integer">
         select count(*) from tb_article
     </select>

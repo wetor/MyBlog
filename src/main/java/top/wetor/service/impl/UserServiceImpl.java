@@ -8,7 +8,7 @@ import top.wetor.service.IUserService;
 
 import java.util.List;
 
-@Service
+@Service("userService")
 public class UserServiceImpl implements IUserService {
     @Autowired
     private UserDao userDao;
