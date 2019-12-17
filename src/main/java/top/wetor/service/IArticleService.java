@@ -12,10 +12,20 @@ public interface IArticleService {
      */
     void insertArticle(Article article);
     /**
-     * 通过id删除文章
+     * 通过id完全文章（可恢复）
      * @param id id
      */
     void deleteArticleById(Integer id);
+    /**
+     * 通过id恢复删除的文章
+     * @param id id
+     */
+    void deleteArticleRestoreById(Integer id);
+    /**
+     * 通过id完全删除文章
+     * @param id id
+     */
+    void deleteArticleCompleteById(Integer id);
     /**
      * 修改文章信息
      * @param article 文章

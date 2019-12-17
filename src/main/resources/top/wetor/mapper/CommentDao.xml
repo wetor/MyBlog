@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.wetor.dao.CommentDao">
 
-    <resultMap id="commentRM" type="top.wetor.domain.Comment">
+    <resultMap id="comment" type="top.wetor.domain.Comment">
         <id property="id" column="c_id"/>
         <result property="commentId" column="c_cid"/>
         <result property="articleId" column="a_id"/>
@@ -13,7 +13,16 @@
         <result property="mail" column="c_mail"/>
         <result property="content" column="c_content"/>
     </resultMap>
-
+    <resultMap id="commentRM" type="top.wetor.domain.Comment">
+        <id property="id" column="c_id"/>
+        <result property="commentId" column="c_cid"/>
+        <result property="articleId" column="a_id"/>
+        <result property="time" column="c_time"/>
+        <result property="name" column="c_name"/>
+        <result property="mail" column="c_mail"/>
+        <result property="content" column="c_content"/>
+        <collection property="commentList" select="selectCommentTreeById_private" column="c_id"></collection>
+    </resultMap>
 
     <insert id="insertComment" parameterType="top.wetor.domain.Comment">
         insert into tb_comment
@@ -28,7 +37,21 @@
     </insert>
     <delete id="deleteCommentById" parameterType="Integer">
         delete from tb_comment
-        Where c_id = #{id}
+        where c_id=#{id} and
+        not exists(
+            select a.c_cid from(
+                select b.c_cid from tb_comment b
+                where b.c_cid=#{id}
+            ) a
+        );
+        update tb_comment set c_content='此评论已被删除。'
+        where c_id=#{id} and
+        exists(
+            select a.c_cid from(
+                select b.c_cid from tb_comment b
+                where b.c_cid=#{id}
+            ) a
+        );
     </delete>
     <update id="updateComment" parameterType="top.wetor.domain.Comment">
         update tb_comment
@@ -42,16 +65,25 @@
         </set>
         where c_id = #{id}
     </update>
-    <select id="selectCommentById" parameterType="Integer" resultMap="commentRM">
+    <select id="selectCommentById" parameterType="Integer" resultMap="comment">
+        select * from tb_comment
+        where c_id = #{id}
+    </select>
+    <select id="selectCommentTreeById" parameterType="Integer" resultMap="commentRM">
         select * from tb_comment
         where c_id = #{id}
     </select>
     <select id="selectCommentCount" resultType="integer">
         select count(*) from tb_comment
     </select>
-    <select id="selectCommentPage" resultMap="commentRM">
+    <!--子回复，默认正序-->
+    <select id="selectCommentTreeById_private"  parameterType="Integer" resultMap="commentRM">
+        select * from tb_comment where c_cid=#{id}
+        ORDER BY c_time
+    </select>
+
+    <select id="selectCommentPage" resultMap="comment">
         select * from tb_comment
-        where c_cid = null
         ORDER BY c_time
         <if test=" param3 == null or param3 == false ">
             desc
@@ -59,38 +91,33 @@
         limit #{begin},#{number}
     </select>
 
-    <select id="selectCommentAll" resultMap="commentRM">
+    <select id="selectCommentAll" resultMap="comment">
         select * from tb_comment
-        where c_cid = null
         ORDER BY c_time
         <if test=" param1 == null or param1 == false ">
             desc
         </if>
     </select>
 
-    <select id="selectCommentReplyPageById" resultMap="commentRM">
-        select * from tb_comment
-        where c_cid=#{id}
-        ORDER BY c_time
+    <select id="selectCommentPageByArticleId" resultMap="commentRM">
+        select * from tb_comment a
+        where a.c_cid is null and a.c_id in (
+            select b.c_id from tb_comment b
+            where b.a_id=#{id}
+        )ORDER BY a.c_time
         <if test=" param4 == null or param4 == false ">
             desc
         </if>
         limit #{begin},#{number}
     </select>
 
-    <select id="selectCommentReplyAllById" resultMap="commentRM">
-        select * from tb_comment
-        where c_cid=#{id}
-        ORDER BY c_time
-        <if test=" param2 == null or param2 == false ">
-            desc
-        </if>
-    </select>
 
-    <select id="selectArticleCommentAllById" resultMap="commentRM">
-        select * from tb_comment
-        where a_id=#{id} and c_cid=null
-        ORDER BY c_time
+    <select id="selectCommentAllByArticleId" resultMap="commentRM">
+        select * from tb_comment a
+        where a.c_cid is null and a.c_id in (
+            select b.c_id from tb_comment b
+            where b.a_id=#{id}
+        )ORDER BY a.c_time
         <if test=" param2 == null or param2 == false ">
             desc
         </if>

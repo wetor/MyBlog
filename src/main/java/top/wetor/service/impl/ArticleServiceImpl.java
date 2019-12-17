@@ -33,17 +33,36 @@ public class ArticleServiceImpl implements IArticleService {
         tagMapDao.insertTagMapByArticle(nextId,article.getTags());
     }
     /**
-     * 完全删除文章,并更新标签和标签映射表
+     * 删除(隐藏)文章,并更新标签和标签映射表
      * @param id 文章id
      */
     @Override
     public void deleteArticleById(Integer id) {
         Article article = articleDao.selectArticleById(id,0);//极简查询
+        Article updateArticle=new Article();
+        updateArticle.setDelete(true);
+        articleDao.updateArticle(updateArticle);
+        tagDao.deleteTagByString(article.getTags());
+        tagMapDao.deleteTagMapByArticleId(article.getId());
+    }
+    /**
+     * 通过id恢复删除的文章
+     * @param id id
+     */
+    @Override
+    public void deleteArticleRestoreById(Integer id) {
+
+    }
+    /**
+     * 通过id完全删除文章
+     * @param id id
+     */
+    @Override
+    public void deleteArticleCompleteById(Integer id) {
+        Article article = articleDao.selectArticleById(id,0);//极简查询
         articleDao.deleteArticleById(id);
         tagDao.deleteTagByString(article.getTags());
         tagMapDao.deleteTagMapByArticleId(article.getId());
-
-
     }
 
     @Override

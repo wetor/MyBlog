@@ -7,14 +7,15 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.web.bind.annotation.RequestMapping;
 import top.wetor.dao.ArticleDao;
 import top.wetor.dao.TagDao;
 import top.wetor.dao.TagMapDao;
 import top.wetor.dao.UserDao;
 import top.wetor.domain.Article;
+import top.wetor.domain.Comment;
 import top.wetor.domain.User;
 import top.wetor.service.IArticleService;
+import top.wetor.service.ICommentService;
 import top.wetor.service.ITagService;
 import top.wetor.service.IUserService;
 
@@ -45,6 +46,35 @@ public class MTest {
 	@Autowired
 	private ITagService tagService;
 
+	@Autowired
+	private ICommentService commentService;
+
+	@Test
+	public void insertComment() {
+		Comment comment=new Comment();
+		comment.setCommentId(17);
+		comment.setArticleId(1);
+		comment.setTime(new Date());
+		comment.setName("wetor");
+		comment.setMail("2929");
+		comment.setContent("这是");
+		commentService.insertComment(comment);
+	}
+	@Test
+	public void deleteCommentById(){
+		commentService.deleteCommentById(18);
+	}
+	@Test
+	public void selectCommentTreeById() {
+
+		//Comment comment=commentService.selectCommentTreeById(1);
+		//System.out.println(comment);
+		List<Comment> commentList=commentService.selectCommentAllByArticleId(1,null);
+		for(Comment com : commentList){
+			System.out.println(com);
+		}
+
+	}
 
 	@Test
 	public void tagService_deleteTagByString(){

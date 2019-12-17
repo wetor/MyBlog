@@ -15,12 +15,12 @@ public interface CommentDao {
      */
     void insertComment(Comment comment);
     /**
-     * 通过id删除评论
+     * 通过id删除评论，无子评论则直接删除，否则修改文本
      * @param id id
      */
     void deleteCommentById(Integer id);
     /**
-     * 修改组
+     * 修改评论
      * @param comment 评论
      */
     void updateComment(Comment comment);
@@ -36,6 +36,13 @@ public interface CommentDao {
      * @return 评论数
      */
     Integer selectCommentCount();
+
+    /**
+     * 通过id查询评论树
+     * @param id id
+     * @return 评论
+     */
+    Comment selectCommentTreeById(Integer id);
     /**
      * 查询按时间排序的一定数量评论,c_cid=null
      * @param begin 开始序号，从0开始
@@ -60,20 +67,13 @@ public interface CommentDao {
      * @param asc 是否正序排列(由旧到新)
      * @return 回复列表
      */
-    List<Comment> selectCommentReplyPageById(@Param("id") Integer id, @Param("begin") Integer begin, @Param("number")Integer number, @Param("asc")Boolean asc);
-
+    List<Comment> selectCommentPageByArticleId(@Param("id") Integer id, @Param("begin") Integer begin, @Param("number")Integer number, @Param("asc")Boolean asc);
     /**
-     * 通过id查询评论的全部回复
-     * @param id 评论id
-     * @param asc 是否正序排列(由旧到新)
-     * @return 全部回复列表
-     */
-    List<Comment> selectCommentReplyAllById(@Param("id") Integer id, @Param("asc")Boolean asc);
-    /**
-     * 查询指定文章的评论
+     * 查询指定文章的所以评论树
+     * @param id 文章id
      * @param asc 是否正序排列(由旧到新)
      * @return 全部评论列表
      */
-    List<Comment> selectArticleCommentAllById(@Param("id") Integer id,@Param("asc")Boolean asc);
+    List<Comment> selectCommentAllByArticleId(@Param("id") Integer id,@Param("asc")Boolean asc);
 
 }

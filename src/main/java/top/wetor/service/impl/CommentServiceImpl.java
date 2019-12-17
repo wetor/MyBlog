@@ -6,7 +6,8 @@ import top.wetor.dao.CommentDao;
 import top.wetor.domain.Comment;
 import top.wetor.service.ICommentService;
 
-import java.util.List;
+import java.util.*;
+
 @Service("commentService")
 public class CommentServiceImpl implements ICommentService {
     @Autowired
@@ -37,6 +38,12 @@ public class CommentServiceImpl implements ICommentService {
         return commentDao.selectCommentCount();
     }
 
+
+    @Override
+    public Comment selectCommentTreeById(Integer id){
+        return commentDao.selectCommentTreeById(id);
+    }
+
     @Override
     public List<Comment> selectCommentPage(Integer begin, Integer number, Boolean asc) {
         return commentDao.selectCommentPage(begin, number, asc);
@@ -48,17 +55,13 @@ public class CommentServiceImpl implements ICommentService {
     }
 
     @Override
-    public List<Comment> selectCommentReplyPageById(Integer id, Integer begin, Integer number, Boolean asc) {
-        return commentDao.selectCommentReplyPageById(id, begin, number, asc);
+    public List<Comment> selectCommentPageByArticleId(Integer id, Integer begin, Integer number, Boolean asc) {
+        return commentDao.selectCommentPageByArticleId(id, begin, number, asc);
     }
 
-    @Override
-    public List<Comment> selectCommentReplyAllById(Integer id, Boolean asc) {
-        return commentDao.selectCommentReplyAllById(id, asc);
-    }
 
     @Override
-    public List<Comment> selectArticleCommentAllById(Integer id, Boolean asc) {
-        return commentDao.selectArticleCommentAllById(id, asc);
+    public List<Comment> selectCommentAllByArticleId(Integer id, Boolean asc) {
+        return commentDao.selectCommentAllByArticleId(id, asc);
     }
 }
