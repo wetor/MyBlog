@@ -3,7 +3,7 @@ package top.wetor.domain;
 import java.io.Serializable;
 import java.util.List;
 
-public class Group implements Serializable {
+public class Group extends BaseBean{
 /*  g_id count(10) not null,--主键
        g_name varchar2(60) not null,
        g_info varchar2(1200),
@@ -16,11 +16,11 @@ public class Group implements Serializable {
     private Integer count;
     //组内文章
     private List<Article> articleList;
-
+    @Override
     public Integer getId() {
         return id;
     }
-
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }

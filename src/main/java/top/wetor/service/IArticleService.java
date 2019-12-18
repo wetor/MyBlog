@@ -1,7 +1,8 @@
 package top.wetor.service;
 
 import top.wetor.domain.Article;
-import top.wetor.utils.ArticleMode;
+import top.wetor.utils.ArticleContentShow;
+import top.wetor.utils.ArticleStateShow;
 
 import java.util.List;
 
@@ -34,49 +35,54 @@ public interface IArticleService {
     /**
      * 通过id查询文章
      * @param id id
-     * @param mode null/0:极简(不含文章内容) 1:简略(含文章内容摘要) 2:完整(包含文章内容)
+     * @param content null/0:极简(不含文章内容) 1:简略(含文章内容摘要) 2:完整(包含文章内容)
      * @return 文章
      */
-    Article selectArticleById(Integer id, ArticleMode mode);
+    Article selectArticleById(Integer id, ArticleContentShow content);
     /**
      * 查询文章数
+     * @param state NORMAL:一般,TOP:置顶,HIDDEN:隐藏,DELETE:删除,USER:用户,ADMIN:管理员
      * @return 文章数
      */
-    Integer selectArticleCount();
+    Integer selectArticleCount(ArticleStateShow state);
     /**
      * 查询按时间排序的一定数量文章
      * @param begin 开始序号，从0开始
      * @param number 个数
-     * @param mode MINI:极简(不含文章内容) SIMPLE:简略(含文章内容摘要) COMPLETE:完整(包含文章内容)
+     * @param content MINI:极简(不含文章内容) SIMPLE:简略(含文章内容摘要) COMPLETE:完整(包含文章内容)
      * @param asc 是否正序排列(由旧到新)
+     * @param state NORMAL:一般,TOP:置顶,HIDDEN:隐藏,DELETE:删除,USER:用户,ADMIN:管理员
      * @return 文章列表
      */
-    List<Article> selectArticlePage(Integer begin, Integer number, ArticleMode mode, Boolean asc);
+    List<Article> selectArticlePage(Integer begin, Integer number, ArticleContentShow content, Boolean asc, ArticleStateShow state);
 
     /**
      * 查询全部文章
-     * @param mode MINI:极简(不含文章内容) SIMPLE:简略(含文章内容摘要) COMPLETE:完整(包含文章内容)
+     * @param content MINI:极简(不含文章内容) SIMPLE:简略(含文章内容摘要) COMPLETE:完整(包含文章内容)
      * @param asc 是否正序排列(由旧到新)
+     * @param state NORMAL:一般,TOP:置顶,HIDDEN:隐藏,DELETE:删除,USER:用户,ADMIN:管理员
      * @return 全部文章列表
      */
-    List<Article> selectArticleAll(ArticleMode mode, Boolean asc);
+    List<Article> selectArticleAll(ArticleContentShow content, Boolean asc, ArticleStateShow state);
     /**
      * 查询属于指定对象的全部文章
      * @param bean User  Group  Tag
-     * @param mode MINI:极简(不含文章内容) SIMPLE:简略(含文章内容摘要) COMPLETE:完整(包含文章内容)
+     * @param content MINI:极简(不含文章内容) SIMPLE:简略(含文章内容摘要) COMPLETE:完整(包含文章内容)
      * @param asc 是否正序排列(由旧到新)
+     * @param state NORMAL:一般,TOP:置顶,HIDDEN:隐藏,DELETE:删除,USER:用户,ADMIN:管理员
      * @return 全部文章列表
      */
-    List<Article> selectArticleAllByBean(Object bean, ArticleMode mode, Boolean asc);
+    List<Article> selectArticleAllByBean(Object bean, ArticleContentShow content, Boolean asc, ArticleStateShow state);
     /**
      * 查询属于指定对象的一定数量文章
      * @param bean User  Group  Tag
      * @param begin 开始序号，从0开始
      * @param number 个数
-     * @param mode MINI:极简(不含文章内容) SIMPLE:简略(含文章内容摘要) COMPLETE:完整(包含文章内容)
+     * @param content MINI:极简(不含文章内容) SIMPLE:简略(含文章内容摘要) COMPLETE:完整(包含文章内容)
      * @param asc 是否正序排列(由旧到新)
+     * @param state NORMAL:一般,TOP:置顶,HIDDEN:隐藏,DELETE:删除,USER:用户,ADMIN:管理员
      * @return 文章列表
      */
-    List<Article> selectArticlePageByBean(Object bean, Integer begin, Integer number, ArticleMode mode, Boolean asc);
+    List<Article> selectArticlePageByBean(Object bean, Integer begin, Integer number, ArticleContentShow content, Boolean asc, ArticleStateShow state);
 
 }

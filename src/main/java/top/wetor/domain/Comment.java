@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class Comment implements Serializable {
+public class Comment  extends BaseBean {
     /*
     c_id number(10) not null,--主键
        c_cid number(10),--父评论id
@@ -23,11 +23,11 @@ public class Comment implements Serializable {
     private String content;
     //子评论列表
     private List<Comment> commentList;
-
+    @Override
     public Integer getId() {
         return id;
     }
-
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }

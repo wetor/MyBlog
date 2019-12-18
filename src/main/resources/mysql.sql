@@ -29,9 +29,9 @@ create table tb_article(
 	   a_love int,
        a_cache_path varchar(120),
        a_content MEDIUMTEXT,
-       a_is_top int,
-       a_is_hidden int(1),
-       a_is_delete int(1),
+       a_is_top int(1) default 0,
+       a_is_hidden int(1) ,
+       a_is_delete int(1) ,
 	   constraint tb_article_group_fk  FOREIGN KEY(g_id) REFERENCES tb_group(g_id),
 	   constraint tb_article_user_fk FOREIGN KEY(u_id) REFERENCES tb_user(u_id)
 );

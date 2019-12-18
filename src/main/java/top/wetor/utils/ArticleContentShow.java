@@ -1,5 +1,5 @@
 package top.wetor.utils;
 
-public enum ArticleMode {
+public enum ArticleContentShow {
     MINI,SIMPLE,COMPLETE
 }

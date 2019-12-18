@@ -3,7 +3,7 @@ package top.wetor.domain;
 import java.io.Serializable;
 import java.util.List;
 
-public class Tag implements Serializable {
+public class Tag  extends BaseBean {
     /*
         t_id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
         t_content varchar(30) NOT NULL,
@@ -14,11 +14,11 @@ public class Tag implements Serializable {
     private Integer count;
     //包含标签的文章
     private List<Article> articleList;
-
+    @Override
     public Integer getId() {
         return id;
     }
-
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }

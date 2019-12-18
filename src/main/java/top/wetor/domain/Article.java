@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author Li
  */
-public class Article implements Serializable {
+public class Article extends BaseBean{
 /*     a_id number(10) not null,--主键
        g_id number(10) not null,--外键，组id
        u_id number(10) not null,--外键，用户id
@@ -39,11 +39,11 @@ public class Article implements Serializable {
 
     //顶层评论列表
     private List<Comment> commentList;
-
+    @Override
     public Integer getId() {
         return id;
     }
-
+    @Override
     public void setId(Integer id) {
         this.id = id;
     }

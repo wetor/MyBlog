@@ -96,6 +96,7 @@ public class MTest {
 		article.setModifyTime(new Date());
 		article.setLookNum(1);
 		article.setLoveNum(1);
+		article.setDelete(false);
 		articleService.insertArticle(article);
 	}
 	@Test

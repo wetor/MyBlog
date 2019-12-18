@@ -22,8 +22,8 @@
     </resultMap>
     <!-- TODO Article多表映射-->
 
-    <!-- 查询公共sql -->
-    <sql id="selectWithoutContent">
+    <!-- 查询 文章 -->
+    <sql id="selectHead">
         select
             a_id,
             g_id,
@@ -35,16 +35,84 @@
             a_look,
             a_love,
             a_cache_path,
+        <if test="contentShow==0">
+        </if>
+        <if test="contentShow==1">
+            substr(a_content,1,256),
+        </if>
+        <if test="contentShow==2">
+            a_content,
+        </if>
             a_is_top,
             a_is_hidden,
             a_is_delete
     </sql>
+    <!-- 查询 排序 -->
+    <sql id="selectAsc">
+        ORDER BY a_is_top desc,a_create_time
+        <if test=" asc == null or asc == false ">
+            desc
+        </if>
+    </sql>
+    <!-- 查询 状态-->
+    <sql id="selectState">
+        <trim prefixOverrides="and">
+            <!-- 仅普通，置顶，隐藏，删除（回收站），普通和置顶（user），普通置顶隐藏（admin） -->
+            <if test="stateShow==null">
+                <!--强制为空-->
+                and 1=0
+            </if>
+            <if test="stateShow==0">
+                and (a_is_top    = 0 or a_is_top    is null)
+                and (a_is_hidden = 0 or a_is_hidden is null)
+                and (a_is_delete = 0 or a_is_delete is null)
+            </if>
+            <if test="stateShow==1">
+                and a_is_top    = 1
+                and (a_is_delete = 0 or a_is_delete is null)
+            </if>
+            <if test="stateShow==2">
+                and a_is_hidden = 1
+                and (a_is_delete = 0 or a_is_delete is null)
+            </if>
+            <if test="stateShow==3">
+                and a_is_delete = 1
+            </if>
+            <if test="stateShow==4">
+                and (a_is_delete = 0 or a_is_delete is null)
+                and (a_is_hidden = 0 or a_is_hidden is null)
+            </if>
+            <if test="stateShow==5">
+                and (a_is_delete = 0 or a_is_delete is null)
+            </if>
+        </trim>
+    </sql>
 
-
-
+    <sql id="selectBean">
+        <!-- 0:User  1:Group  2:Tag -->
+        <trim prefixOverrides="and">
+            <if test="bean==0">
+                and u_id=#{id}
+            </if>
+            <if test="bean==1">
+                and g_id=#{id}
+            </if>
+            <if test="bean==2">
+                and find_in_set(
+                    (
+                        select t_content
+                        from tb_tag
+                        where t_id=#{id}
+                    ),a_tags
+                )
+            </if>
+        </trim>
+    </sql>
     <insert id="insertArticle" parameterType="top.wetor.domain.Article">
         insert into tb_article
-        values( null ,
+        values(
+        <trim prefixOverrides=",">
+            null ,
             #{groupId},
             #{userId},
             #{title},
@@ -54,10 +122,26 @@
             #{lookNum},
             #{loveNum},
             #{cachePath},
-            #{content},
-            #{isTop},
-            #{isHidden},
-            #{isDelete}
+            #{content}
+            <if test="isTop!=null">
+                ,#{isTop}
+            </if>
+            <if test="isTop==null">
+                ,0
+            </if>
+            <if test="isHidden!=null">
+                ,#{isHidden}
+            </if>
+            <if test="isHidden==null">
+                ,0
+            </if>
+            <if test="isDelete!=null">
+                ,#{isDelete}
+            </if>
+            <if test="isDelete==null">
+                ,0
+            </if>
+        </trim>
         );
     </insert>
 
@@ -82,14 +166,15 @@
             <if test="isTop != null">a_is_top= #{isTop},</if>
             <if test="isHidden != null">a_is_hidden=  #{isHidden},</if>
             <if test="isDelete != null">a_is_delete=#{isDelete}</if>
-
         </set>
         where a_id = #{id}
     </update>
 
-    <select id="selectArticleById" parameterType="Integer" resultMap="articleRM">
-        select * from tb_article
+    <select id="selectArticleById" resultMap="articleRM">
+        <include refid="selectHead"/>
+        from tb_article
         where a_id = #{id}
+
     </select>
 
 
@@ -100,113 +185,47 @@
         ) and table_name="tb_article";
     </select>
 
-    <select id="selectArticleCount" resultType="integer">
-        select count(*) from tb_article
+    <select id="selectArticleCount" resultType="Integer">
+        select count(a_id) from tb_article
+        where
+        <include refid="selectState"/>
     </select>
 
 
     <select id="selectArticlePage" resultMap="articleRM">
-        <include refid="selectWithoutContent"/>
-        <if test="param3==null or param3==0">
-        </if>
-        <if test="param3==1">
-            ,substr(a_content,1,256)
-        </if>
-        <if test="param3==2">
-            ,a_content
-        </if>
+        <include refid="selectHead"/>
         from tb_article
-        ORDER BY a_create_time
-        <if test=" param4 == null or param4 == false ">
-            desc
-        </if>
+        where
+        <include refid="selectState"/>
+        <include refid="selectAsc"/>
         limit #{begin},#{number}
     </select>
 
-
-
     <select id="selectArticleAll" resultMap="articleRM">
-        <include refid="selectWithoutContent"/>
-        <if test="param1==null or param1==0">
-        </if>
-        <if test="param1==1">
-            ,substr(a_content,1,256)
-        </if>
-        <if test="param1==2">
-            ,a_content
-        </if>
+        <include refid="selectHead"/>
         from tb_article
-        ORDER BY a_create_time
-        <if test=" param2 == null or param2 == false ">
-            desc
-        </if>
+        where
+        <include refid="selectState"/>
+        <include refid="selectAsc"/>
     </select>
     <select id="selectArticleAllByType" resultMap="articleRM">
-        <include refid="selectWithoutContent"/>
-        <!-- null/0:极简(不含文章内容) 1:简略(含文章内容摘要) 2:完整(包含文章内容) -->
-        <if test="param3==null or param3==0">
-        </if>
-        <if test="param3==1">
-            ,substr(a_content,1,256)
-        </if>
-        <if test="param3==2">
-            ,a_content
-        </if>
+        <include refid="selectHead"/>
         from tb_article
-        <!-- 0:User  1:Group  2:Tag -->
-        <trim prefix="where" prefixOverrides="and">
-            <if test="param1==0">
-                and u_id=#{id}
-            </if>
-            <if test="param1==1">
-                and g_id=#{id}
-            </if>
-            <if test="param1==2">
-                and find_in_set(
-                    (select t_content
-                    from tb_tag
-                    where t_id=#{id}
-                ),a_tags)
-            </if>
-        </trim>
-        ORDER BY a_create_time
-        <if test=" param4 == null or param4 == false ">
-            desc
-        </if>
+        where
+        <include refid="selectBean"/>
+        and
+        <include refid="selectState"/>
+        <include refid="selectAsc"/>
     </select>
 
     <select id="selectArticlePageByType" resultMap="articleRM">
-        <include refid="selectWithoutContent"/>
-        <!-- null/0:极简(不含文章内容) 1:简略(含文章内容摘要) 2:完整(包含文章内容) -->
-        <if test="param5==null or param5==0">
-        </if>
-        <if test="param5==1">
-            ,substr(a_content,1,256)
-        </if>
-        <if test="param5==2">
-            ,a_content
-        </if>
+        <include refid="selectHead"/>
         from tb_article
-        <!-- 0:User  1:Group  2:Tag -->
-        <trim prefix="where" prefixOverrides="and">
-            <if test="param1==0">
-                and u_id=#{id}
-            </if>
-            <if test="param1==1">
-                and g_id=#{id}
-            </if>
-            <if test="param1==2">
-                and find_in_set(
-                (select t_content
-                from tb_tag
-                where t_id=#{id}
-                ),a_tags)
-            </if>
-        </trim>
-        ORDER BY a_create_time
-        <if test=" param6 == null or param6 == false ">
-            desc
-        </if>
+        where
+        <include refid="selectBean"/>
+        and
+        <include refid="selectState"/>
+        <include refid="selectAsc"/>
         limit #{begin},#{number}
     </select>
 </mapper>
