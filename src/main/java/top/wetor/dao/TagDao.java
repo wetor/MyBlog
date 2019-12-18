@@ -24,6 +24,13 @@ public interface TagDao {
      * @param tags tags
      */
     void deleteTagByString(@Param("tags") String tags);
+
+    /**
+     * 通过文章id删除标签
+     * @param id 文章id
+     */
+    void deleteTagByArticleId(Integer id);
+
     /**
      * 通过String更新标签
      * @param tags TagString

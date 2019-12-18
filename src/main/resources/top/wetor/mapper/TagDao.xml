@@ -49,6 +49,31 @@
             );
         </if>
     </delete>
+    <delete id="deleteTagByArticleId" parameterType="Integer">
+        -- 删除数量仅有一个文章使用的标签
+        delete from tb_tag
+        where t_id in (
+            select * from (
+                select t_id from tb_tag
+                where t_count = 1 and t_id in(
+                    select t_id from tb_tag_map
+                    where a_id = #{id}
+                )
+            )as d
+        );
+        -- 多个文章使用的标签则减少1
+        update tb_tag set t_count = t_count-1
+        where t_id in (
+            select * from (
+                select t_id from tb_tag
+                    where t_count > 1 and t_id in(
+                        select t_id from tb_tag_map
+                        where a_id = #{id}
+                )
+            )as d
+        );
+
+    </delete>
     <update id="updateTagByString" parameterType="String">
         <if test="tags!=null">
             insert tb_tag(t_id,t_content,t_count) values

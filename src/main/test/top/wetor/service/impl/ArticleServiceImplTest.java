@@ -8,20 +8,17 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import top.wetor.domain.Article;
 import top.wetor.domain.Group;
+import top.wetor.domain.Tag;
 import top.wetor.service.IArticleService;
 import top.wetor.utils.ArticleContentShow;
 import top.wetor.utils.ArticleStateShow;
+import wetor.test.BaseTest;
 
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.*;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = "classpath:applicationContext.xml")
-public class ArticleServiceImplTest {
-    @Autowired
-    private IArticleService articleService;
+public class ArticleServiceImplTest extends BaseTest {
 
     @Test
     public void insertArticle() {
@@ -74,7 +71,7 @@ public class ArticleServiceImplTest {
 
     @Test
     public void selectArticleAll() {
-        List<Article> articleList=articleService.selectArticleAll(ArticleContentShow.MINI,null, ArticleStateShow.NORMAL);
+        List<Article> articleList=articleService.selectArticleAll(ArticleContentShow.MINI, ArticleStateShow.NORMAL,null);
         for(Article article:articleList) {
             System.out.println(article);
         }
@@ -82,9 +79,11 @@ public class ArticleServiceImplTest {
 
     @Test
     public void selectArticleAllByBean() {
-        Group group=new Group();
-        group.setId(1);
-        List<Article> articleList=articleService.selectArticleAllByBean(group,ArticleContentShow.MINI,null,ArticleStateShow.ADMIN);
+        //Group group=new Group();
+        //group.setId(1);
+        Tag tag=new Tag();
+        tag.setId(110);
+        List<Article> articleList=articleService.selectArticleAllByBean(tag,ArticleContentShow.MINI,ArticleStateShow.ADMIN,null);
         for(Article article:articleList) {
             System.out.println(article);
         }

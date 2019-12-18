@@ -50,39 +50,39 @@ public interface IArticleService {
      * @param begin 开始序号，从0开始
      * @param number 个数
      * @param content MINI:极简(不含文章内容) SIMPLE:简略(含文章内容摘要) COMPLETE:完整(包含文章内容)
-     * @param asc 是否正序排列(由旧到新)
      * @param state NORMAL:一般,TOP:置顶,HIDDEN:隐藏,DELETE:删除,USER:用户,ADMIN:管理员
+     * @param asc 是否正序排列(由旧到新)
      * @return 文章列表
      */
-    List<Article> selectArticlePage(Integer begin, Integer number, ArticleContentShow content, Boolean asc, ArticleStateShow state);
+    List<Article> selectArticlePage(Integer begin, Integer number, ArticleContentShow content, ArticleStateShow state, Boolean asc);
 
     /**
      * 查询全部文章
      * @param content MINI:极简(不含文章内容) SIMPLE:简略(含文章内容摘要) COMPLETE:完整(包含文章内容)
-     * @param asc 是否正序排列(由旧到新)
      * @param state NORMAL:一般,TOP:置顶,HIDDEN:隐藏,DELETE:删除,USER:用户,ADMIN:管理员
+     * @param asc 是否正序排列(由旧到新)
      * @return 全部文章列表
      */
-    List<Article> selectArticleAll(ArticleContentShow content, Boolean asc, ArticleStateShow state);
+    List<Article> selectArticleAll(ArticleContentShow content, ArticleStateShow state, Boolean asc);
     /**
      * 查询属于指定对象的全部文章
      * @param bean User  Group  Tag
      * @param content MINI:极简(不含文章内容) SIMPLE:简略(含文章内容摘要) COMPLETE:完整(包含文章内容)
-     * @param asc 是否正序排列(由旧到新)
      * @param state NORMAL:一般,TOP:置顶,HIDDEN:隐藏,DELETE:删除,USER:用户,ADMIN:管理员
+     * @param asc 是否正序排列(由旧到新)
      * @return 全部文章列表
      */
-    List<Article> selectArticleAllByBean(Object bean, ArticleContentShow content, Boolean asc, ArticleStateShow state);
+    List<Article> selectArticleAllByBean(Object bean, ArticleContentShow content, ArticleStateShow state, Boolean asc);
     /**
      * 查询属于指定对象的一定数量文章
      * @param bean User  Group  Tag
      * @param begin 开始序号，从0开始
      * @param number 个数
      * @param content MINI:极简(不含文章内容) SIMPLE:简略(含文章内容摘要) COMPLETE:完整(包含文章内容)
-     * @param asc 是否正序排列(由旧到新)
      * @param state NORMAL:一般,TOP:置顶,HIDDEN:隐藏,DELETE:删除,USER:用户,ADMIN:管理员
+     * @param asc 是否正序排列(由旧到新)
      * @return 文章列表
      */
-    List<Article> selectArticlePageByBean(Object bean, Integer begin, Integer number, ArticleContentShow content, Boolean asc, ArticleStateShow state);
+    List<Article> selectArticlePageByBean(Object bean, Integer begin, Integer number, ArticleContentShow content, ArticleStateShow state, Boolean asc);
 
 }

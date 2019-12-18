@@ -33,8 +33,4 @@ public class TagMapService implements ITagMapService {
         return tagMapDao.selectTagByArticleId(a_id);
     }
 
-    @Override
-    public List<Article> selectArticleByTagId(Integer t_id, Integer mode, Boolean asc) {
-        return tagMapDao.selectArticleByTagId(t_id, mode, asc);
-    }
 }

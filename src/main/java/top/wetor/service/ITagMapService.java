@@ -30,12 +30,5 @@ public interface ITagMapService {
      * @return List<Tag>
      */
     List<Tag> selectTagByArticleId(Integer a_id);
-    /**
-     * 根据标签查询帖子
-     * @param t_id 标签id
-     * @param mode null/0:极简(不含文章内容) 1:简略(含文章内容摘要) 2:完整(包含文章内容)
-     * @param asc 是否正序排列(由旧到新)
-     * @return 全部文章列表
-     */
-    List<Article> selectArticleByTagId(Integer t_id, Integer mode, Boolean asc);
+
 }

@@ -37,8 +37,11 @@
         <if test="tags!=null">
             insert tb_tag_map(t_id,a_id) values
             <foreach item="content" collection="tags.split(',')" separator="," >
-                    ((select t_id from tb_tag where t_content=#{content})
-                    ,#{articleId})
+                (
+                    (select t_id from tb_tag
+                    where t_content=#{content}
+                    ),#{articleId}
+                )
             </foreach>
         </if>
     </insert>
@@ -57,37 +60,5 @@
             where a_id = #{articleId}
         )
     </select>
-    <select id="selectArticleByTagId" resultMap="articleRM">
-        select
-        a_id,
-        g_id,
-        u_id,
-        a_title,
-        a_tags,
-        a_create_time,
-        a_modify_time,
-        a_look,
-        a_love,
-        a_cache_path,
-        a_is_top,
-        a_is_hidden,
-        a_is_delete
-        <if test="param2==null or param2==0">
-        </if>
-        <if test="param2==1">
-            ,substr(a_content,1,256)
-        </if>
-        <if test="param2==2">
-            ,a_content
-        </if>
-        from tb_article
-        where find_in_set(
-        (select t_content from tb_tag where t_id=#{tagId})
-        ,a_tags
-        )>0
-        ORDER BY a_create_time
-        <if test=" param3 == null or param3 == false ">
-            desc
-        </if>
-    </select>
+
 </mapper>

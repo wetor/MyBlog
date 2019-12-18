@@ -70,17 +70,14 @@ public class ArticleServiceImpl implements IArticleService {
     @Override
     public void deleteArticleById(Integer id) {
 
-        Article article = articleDao.selectArticleById(id,getContentShow(ArticleContentShow.MINI));//极简查询
+        //Article article = articleDao.selectArticleById(id,getContentShow(ArticleContentShow.MINI));//极简查询
 
         Article updateArticle=new Article();
-        updateArticle.setId(article.getId());
+        updateArticle.setId(id);
         updateArticle.setDelete(true);
-        updateArticle.setTop(false);
-        updateArticle.setHidden(false);
-
         articleDao.updateArticle(updateArticle);
-        tagDao.deleteTagByString(article.getTags());
-        tagMapDao.deleteTagMapByArticleId(article.getId());
+        tagDao.deleteTagByArticleId(id);
+        tagMapDao.deleteTagMapByArticleId(id);
     }
     /**
      * 通过id恢复删除的文章
@@ -136,23 +133,23 @@ public class ArticleServiceImpl implements IArticleService {
     }
 
     @Override
-    public List<Article> selectArticlePage(Integer begin, Integer number, ArticleContentShow content, Boolean asc, ArticleStateShow state) {
-        return articleDao.selectArticlePage(begin, number, getContentShow(content), asc, getStateShow(state));
+    public List<Article> selectArticlePage(Integer begin, Integer number, ArticleContentShow content, ArticleStateShow state, Boolean asc) {
+        return articleDao.selectArticlePage(begin, number, getContentShow(content), getStateShow(state), asc);
     }
 
     @Override
-    public List<Article> selectArticleAll(ArticleContentShow content, Boolean asc, ArticleStateShow state) {
-        return articleDao.selectArticleAll(getContentShow(content), asc, getStateShow(state));
+    public List<Article> selectArticleAll(ArticleContentShow content, ArticleStateShow state, Boolean asc) {
+        return articleDao.selectArticleAll(getContentShow(content), getStateShow(state), asc);
     }
 
     @Override
-    public List<Article> selectArticleAllByBean(Object bean, ArticleContentShow content, Boolean asc, ArticleStateShow state) {
-        return articleDao.selectArticleAllByType(getBeanType(bean), ((BaseBean)bean).getId(), getContentShow(content), asc, getStateShow(state));
+    public List<Article> selectArticleAllByBean(Object bean, ArticleContentShow content, ArticleStateShow state, Boolean asc) {
+        return articleDao.selectArticleAllByType(getBeanType(bean), ((BaseBean)bean).getId(), getContentShow(content), getStateShow(state), asc);
     }
 
     @Override
-    public List<Article> selectArticlePageByBean(Object bean, Integer begin, Integer number, ArticleContentShow content, Boolean asc, ArticleStateShow state) {
-        return articleDao.selectArticlePageByType(getBeanType(bean), ((BaseBean)bean).getId(), begin, number, getContentShow(content), asc, getStateShow(state));
+    public List<Article> selectArticlePageByBean(Object bean, Integer begin, Integer number, ArticleContentShow content, ArticleStateShow state, Boolean asc) {
+        return articleDao.selectArticlePageByType(getBeanType(bean), ((BaseBean)bean).getId(), begin, number, getContentShow(content), getStateShow(state), asc);
 
     }
 }
