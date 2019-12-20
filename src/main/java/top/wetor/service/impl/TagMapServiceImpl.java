@@ -9,7 +9,7 @@ import top.wetor.service.ITagMapService;
 
 import java.util.List;
 @Service("tagMapService")
-public class TagMapService implements ITagMapService {
+public class TagMapServiceImpl implements ITagMapService {
     @Autowired
     private TagMapDao tagMapDao;
 

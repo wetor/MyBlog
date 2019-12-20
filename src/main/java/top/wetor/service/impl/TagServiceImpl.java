@@ -8,7 +8,7 @@ import top.wetor.service.ITagService;
 
 import java.util.List;
 @Service("tagService")
-public class TagService implements ITagService {
+public class TagServiceImpl implements ITagService {
     @Autowired
     private TagDao tagDao;
 
